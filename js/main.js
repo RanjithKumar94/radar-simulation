@@ -89,3 +89,14 @@ function spawnAircraft(){
     });
 
 }
+//--------------------------------------
+// Start Simulator
+//--------------------------------------
+
+setInterval(function(){
+
+    updateClock();
+
+    spawnAircraft();
+
+},1000);
