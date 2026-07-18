@@ -173,11 +173,42 @@ function drawRoutes(){
 
 function drawAircraft(){
 
-    // Aircraft will be added in the next step.
-    // Keeping this function avoids errors.
+    if(typeof aircraft === "undefined") return;
+
+    aircraft.forEach(ac=>{
+
+        if(!ac.active) return;
+
+        const pos = bearingToXY(ac.entryRadial, ac.distance);
+
+        // Aircraft symbol
+        ctx.fillStyle="#00FF00";
+
+        ctx.beginPath();
+        ctx.arc(pos.x,pos.y,4,0,Math.PI*2);
+        ctx.fill();
+
+        // Leader line
+        ctx.beginPath();
+        ctx.moveTo(pos.x+4,pos.y-4);
+        ctx.lineTo(pos.x+35,pos.y-20);
+        ctx.strokeStyle="#00FF00";
+        ctx.stroke();
+
+        // Callsign
+        ctx.font="14px Consolas";
+        ctx.fillStyle="#00FF00";
+        ctx.fillText(ac.callsign,pos.x+38,pos.y-20);
+
+        // Flight Level
+        ctx.fillText("FL"+ac.level,pos.x+38,pos.y-5);
+
+        // Speed
+        ctx.fillText(ac.speed+"KT",pos.x+38,pos.y+10);
+
+    });
 
 }
-
 // ======================================
 // Draw Complete Radar
 // ======================================
