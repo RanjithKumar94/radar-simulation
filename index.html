@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ATC Radar Simulator</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+
+        <h2>ATC RADAR SIMULATOR</h2>
+
+        <div id="clock">
+            03:00:00
+        </div>
+
+    </header>
+
+    <!-- Main Layout -->
+    <div id="container">
+
+        <!-- Radar Screen -->
+        <canvas id="radar"
+                width="900"
+                height="900">
+        </canvas>
+
+        <!-- Control Panel -->
+        <div id="panel">
+
+            <h3>Aircraft Control</h3>
+
+            <label>Callsign</label>
+            <input id="callsign">
+
+            <label>Heading</label>
+            <input id="heading" type="number">
+
+            <label>Level</label>
+            <input id="level" type="number">
+
+            <label>Speed</label>
+            <input id="speed" type="number">
+
+            <button id="applyBtn">
+                Apply
+            </button>
+
+            <hr>
+
+            <h3>Flight Progress Strips</h3>
+
+            <table id="strips">
+
+                <thead>
+
+                    <tr>
+                        <th>Callsign</th>
+                        <th>Route</th>
+                        <th>FL</th>
+                        <th>ETA</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <script src="js/aircraft.js"></script>
+    <script src="js/radar.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
