@@ -87,7 +87,7 @@ function drawBackground(){
         ctx.stroke();
 
     }
-
+}
   // ======================================
 // PART 2
 // Draw Runway
