@@ -150,7 +150,7 @@ function drawTrafficCircuit(){
 
     alert("NEW TRAFFIC CIRCUIT");
 
-    ...
+
 }
 {
 
