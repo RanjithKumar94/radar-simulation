@@ -17,8 +17,8 @@ turnDirection:"SHORTEST",
 level:180,
 targetLevel:180,
 verticalSpeed: 0,
-speed:280,
-targetSpeed:280,
+speed:140,
+targetSpeed:140,
 
 ccbETA:"03:13",
 
@@ -44,8 +44,8 @@ turnDirection:"SHORTEST",
 level:190,
 targetLevel:190,
 verticalSpeed: 0,
-speed:290,
-targetSpeed:290,
+speed:145,
+targetSpeed:145,
 
 ccbETA:"03:16",
 
@@ -69,8 +69,8 @@ turnDirection:"SHORTEST",
 level:160,
 targetLevel:160,
 verticalSpeed: 0,
-speed:240,
-targetSpeed:240,
+speed:120,
+targetSpeed:120,
 
 ccbETA:"03:19",
 
@@ -95,8 +95,8 @@ level:180,
 targetLevel:180,
   verticalSpeed: 0,
 
-speed:300,
-targetSpeed:300,
+speed:145,
+targetSpeed:145,
 
 ccbETA:"03:21",
 
@@ -121,8 +121,8 @@ turnDirection:"SHORTEST",
 level:110,
 targetLevel:110,
 verticalSpeed: 0,
-speed:260,
-targetSpeed:260,
+speed:130,
+targetSpeed:130,
 
 ccbETA:"03:27",
 
@@ -146,8 +146,8 @@ turnDirection:"SHORTEST",
 level:190,
 targetLevel:190,
 verticalSpeed: 0,
-speed:290,
-targetSpeed:290,
+speed:145,
+targetSpeed:145,
 
 ccbETA:"03:28",
 
@@ -171,8 +171,8 @@ turnDirection:"SHORTEST",
 level:180,
 targetLevel:180,
 verticalSpeed: 0,
-speed:280,
-targetSpeed:280,
+speed:140,
+targetSpeed:140,
 
 ccbETA:"03:32",
 
@@ -196,8 +196,8 @@ turnDirection:"SHORTEST",
 level:110,
 targetLevel:110,
 verticalSpeed: 0,
-speed:180,
-targetSpeed:180,
+speed:90,
+targetSpeed:90,
 
 ccbETA:"03:34",
 
@@ -222,8 +222,8 @@ level:80,
 targetLevel:80,
   verticalSpeed: 0,
 turnDirection:"SHORTEST",
-speed:180,
-targetSpeed:180,
+speed:90,
+targetSpeed:90,
 
 ccbETA:"03:36",
 
