@@ -296,23 +296,31 @@ const pos = {
         ctx.arc(pos.x,pos.y,4,0,Math.PI*2);
         ctx.fill();
 
-        // Leader line
-        ctx.beginPath();
-        ctx.moveTo(pos.x+4,pos.y-4);
-        ctx.lineTo(pos.x+35,pos.y-20);
-        ctx.strokeStyle="#00FF00";
-        ctx.stroke();
+       // ----------------------------
+// Label position
+// ----------------------------
 
-        // Callsign
-        ctx.font="14px Consolas";
-        ctx.fillStyle="#00FF00";
-        ctx.fillText(ac.callsign,pos.x+38,pos.y-20);
+const angle = ac.labelAngle * Math.PI / 180;
 
-        // Flight Level
-        ctx.fillText("FL"+ac.level,pos.x+38,pos.y-5);
+const leaderLength = 35;
 
-        // Speed
-        ctx.fillText(ac.speed+"KT",pos.x+38,pos.y+10);
+const lx = pos.x + Math.cos(angle) * leaderLength;
+const ly = pos.y + Math.sin(angle) * leaderLength;
+
+// Leader line
+ctx.beginPath();
+ctx.moveTo(pos.x,pos.y);
+ctx.lineTo(lx,ly);
+ctx.strokeStyle="#00FF00";
+ctx.stroke();
+
+// Label
+ctx.font="14px Consolas";
+ctx.fillStyle="#00FF00";
+
+ctx.fillText(ac.callsign,lx+5,ly-5);
+ctx.fillText("FL"+Math.round(ac.level),lx+5,ly+10);
+ctx.fillText(ac.speed+"KT",lx+5,ly+25);
 
     });
 
