@@ -148,6 +148,12 @@ function drawCentreline(){
 
 function drawTrafficCircuit(){
 
+    alert("NEW TRAFFIC CIRCUIT");
+
+    ...
+}
+{
+
     const end08 = bearingToXY(260,12);
     const end26 = bearingToXY(80,12);
 
