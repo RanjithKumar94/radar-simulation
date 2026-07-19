@@ -178,6 +178,12 @@ function moveAircraft(){
 
     });
 
+    console.log(
+    ac.callsign,
+    "HDG:", ac.heading,
+    "TARGET:", ac.targetHeading
+);
+
 }
 //--------------------------------------
 // Start Simulator
