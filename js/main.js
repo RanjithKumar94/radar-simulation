@@ -55,6 +55,12 @@ document.getElementById("applyBtn").onclick = function(){
 
             if(!isNaN(lvl)){
                 ac.targetLevel = lvl;
+                console.log(
+    "Assigned",
+    ac.callsign,
+    "Current:", ac.level,
+    "Target:", ac.targetLevel
+);
             }
 
             console.log(
