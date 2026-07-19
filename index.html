@@ -1,95 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<title>ATC Radar Simulator</title>
 
-    <title>ATC Radar Simulator</title>
-
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
 
-    <!-- Header -->
-    <header>
+<div id="container">
 
-        <h2>ATC RADAR SIMULATOR</h2>
+    <!-- ========================= -->
+    <!-- Radar Display -->
+    <!-- ========================= -->
+
+    <div id="radarContainer">
+
+        <canvas id="radar" width="900" height="900"></canvas>
 
         <div id="clock">
             03:00:00
         </div>
 
-    </header>
+    </div>
 
-    <!-- Main Layout -->
-    <div id="container">
+    <!-- ========================= -->
+    <!-- Control Panel -->
+    <!-- ========================= -->
 
-        <!-- Radar Screen -->
-        <canvas id="radar"
-                width="900"
-                height="900">
-        </canvas>
+    <div id="controlPanel">
 
-        <!-- Control Panel -->
-        <div id="panel">
+        <h2>ATC Control Panel</h2>
 
-            <h3>Aircraft Control</h3>
+        <label>Callsign</label>
+        <input
+            type="text"
+            id="callsign"
+            placeholder="IGO201"
+        >
 
-            <label>Callsign</label>
-            <input id="callsign">
+        <label>Heading</label>
+        <input
+            type="number"
+            id="heading"
+            min="1"
+            max="360"
+            placeholder="090"
+        >
 
-            <label>Heading</label>
-            <input id="heading" type="number">
+        <br><br>
 
-            <label>Level</label>
-            <input id="level" type="number">
+        <strong>Turn Direction</strong>
 
-            <label>Speed</label>
-            <input id="speed" type="number">
+        <br><br>
 
-            <button id="applyBtn">
-                Apply
-            </button>
+        <label>
+            <input
+                type="radio"
+                name="turnDir"
+                value="SHORTEST"
+                checked
+            >
+            Shortest
+        </label>
 
-            <hr>
+        <br>
 
-            <h3>Flight Progress Strips</h3>
+        <label>
+            <input
+                type="radio"
+                name="turnDir"
+                value="LEFT"
+            >
+            Left
+        </label>
 
-            <table id="strips">
+        <br>
 
-                <thead>
+        <label>
+            <input
+                type="radio"
+                name="turnDir"
+                value="RIGHT"
+            >
+            Right
+        </label>
 
-                    <tr>
-                        <th>Callsign</th>
-                        <th>Route</th>
-                        <th>FL</th>
-                        <th>ETA</th>
-                    </tr>
+        <br><br>
 
-                </thead>
-
-                <tbody>
-
-                </tbody>
-
-            </table>
-
-        </div>
+        <button id="applyBtn">
+            Apply Heading
+        </button>
 
     </div>
 
-    
-    <script src="js/aircraft.js"></script>
+</div>
+
 <script src="js/radar.js"></script>
+<script src="js/aircraft.js"></script>
 <script src="js/main.js"></script>
-    
 
 </body>
-
 </html>
+
+    
+
+            
+
+        
