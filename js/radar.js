@@ -268,81 +268,73 @@ const CIRCUIT = {
 // Draw Aircraft (placeholder)
 // ======================================
 
+// ======================================
+// Draw Aircraft
+// ======================================
+
 function drawAircraft(){
 
     if(typeof aircraft === "undefined") return;
 
-    aircraft.forEach(ac=>{
+    aircraft.forEach(ac => {
 
         if(!ac.active) return;
 
-const pos = {
-    x: ac.x,
-    y: ac.y
-};
-        // Aircraft symbol
-        ctx.fillStyle="#00FF00";
+        const pos = {
+            x: ac.x,
+            y: ac.y
+        };
 
+        // Aircraft symbol
+        ctx.fillStyle = "#00FF00";
         ctx.beginPath();
-        ctx.arc(pos.x,pos.y,4,0,Math.PI*2);
+        ctx.arc(pos.x, pos.y, 4, 0, Math.PI * 2);
         ctx.fill();
 
-       // ----------------------------
-// Label position
-// ----------------------------
+        // Leader line
+        const angle = ac.labelAngle * Math.PI / 180;
+        const leaderLength = 35;
 
-const angle = ac.labelAngle * Math.PI / 180;
+        const lx = pos.x + Math.cos(angle) * leaderLength;
+        const ly = pos.y + Math.sin(angle) * leaderLength;
 
-const leaderLength = 35;
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+        ctx.lineTo(lx, ly);
+        ctx.strokeStyle = "#00FF00";
+        ctx.stroke();
 
-const lx = pos.x + Math.cos(angle) * leaderLength;
-const ly = pos.y + Math.sin(angle) * leaderLength;
+        // Label
+        ctx.font = "14px Consolas";
+        ctx.fillStyle = "#00FF00";
 
-// Leader line
-ctx.beginPath();
-ctx.moveTo(pos.x,pos.y);
-ctx.lineTo(lx,ly);
-ctx.strokeStyle="#00FF00";
-ctx.stroke();
+        ctx.fillText(ac.callsign, lx + 5, ly - 5);
 
-// Label
-ctx.font="14px Consolas";
-ctx.fillStyle="#00FF00";
+        const currentFL = Math.round(ac.level);
+        const assignedFL = Math.round(ac.targetLevel);
 
+        let levelText;
 
-);
-ctx.fillText(ac.callsign, lx+5, ly-5);
+        if(currentFL < assignedFL){
+            levelText = "FL" + currentFL + " ↑ FL" + assignedFL;
+        }
+        else if(currentFL > assignedFL){
+            levelText = "FL" + currentFL + " ↓ FL" + assignedFL;
+        }
+        else{
+            levelText = "FL" + currentFL;
+        }
 
-// Level display
-let levelText;
+        ctx.fillText(levelText, lx + 5, ly + 10);
 
-const currentFL = Math.round(ac.level);
-const assignedFL = Math.round(ac.targetLevel);
+        ctx.fillText(ac.speed + "KT", lx + 5, ly + 25);
 
-if(currentFL < assignedFL){
-
-    levelText = "FL" + currentFL + " ↑ FL" + assignedFL;
-
-}
-else if(currentFL > assignedFL){
-
-    levelText = "FL" + currentFL + " ↓ FL" + assignedFL;
-
-}
-else{
-
-    levelText = "FL" + currentFL;
+    });
 
 }
 
-ctx.fillText(levelText, lx+5, ly+10);
 
-// Speed
-ctx.fillText(ac.speed + "KT", lx+5, ly+25);
 
-        });
-
-}
 // ======================================
 // Draw Complete Radar
 // ======================================
