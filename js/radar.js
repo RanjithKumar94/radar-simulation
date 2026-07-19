@@ -391,7 +391,6 @@ canvas.addEventListener("click", function(e){
         if(!ac.active) return;
 
         const angle = ac.labelAngle * Math.PI / 180;
-
         const leaderLength = 35;
 
         const lx = ac.x + Math.cos(angle) * leaderLength;
@@ -399,28 +398,33 @@ canvas.addEventListener("click", function(e){
 
         // Label hit box
         if(
-    mx >= lx &&
-    mx <= lx + 100 &&
-    my >= ly - 15 &&
-    my <= ly + 35
-){
+            mx >= lx &&
+            mx <= lx + 100 &&
+            my >= ly - 15 &&
+            my <= ly + 35
+        ){
 
-    // Select aircraft
-    selectedAircraft = ac;
+            // Select aircraft
+            selectedAircraft = ac;
 
-    // Fill control panel
-    document.getElementById("callsign").value = ac.callsign;
-    document.getElementById("heading").value = ac.targetHeading;
-    document.getElementById("level").value = ac.targetLevel;
+            // Fill control panel
+            document.getElementById("callsign").value = ac.callsign;
+            document.getElementById("heading").value = ac.targetHeading;
+            document.getElementById("level").value = ac.targetLevel;
 
-    // Select turn direction
-    document.querySelector(
-        `input[name="turnDir"][value="${ac.turnDirection}"]`
-    ).checked = true;
+            // Turn direction
+            const turn = document.querySelector(
+                `input[name="turnDir"][value="${ac.turnDirection}"]`
+            );
 
-    console.log(ac.callsign + " selected");
+            if(turn){
+                turn.checked = true;
+            }
 
-}
-            });
+            console.log(ac.callsign + " selected");
+
+        }
+
+    });
 
 });
