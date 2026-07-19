@@ -178,11 +178,18 @@ function moveAircraft(){
 
     });
 
+    
+);
     console.log(
     ac.callsign,
-    "HDG:", ac.heading,
-    "TARGET:", ac.targetHeading
+    "Current:", ac.heading,
+    "Target:", ac.targetHeading
 );
+
+const pixelsPerNM = RADAR_RADIUS / MAX_RANGE;
+const pixels = movement * pixelsPerNM;
+
+const angle = (ac.heading - 90) * Math.PI / 180;
 
 }
 //--------------------------------------
