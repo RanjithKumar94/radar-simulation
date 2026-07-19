@@ -37,18 +37,31 @@ function entryOffset(type) {
 document.getElementById("applyBtn").onclick = function(){
 
     const cs = document.getElementById("callsign").value.toUpperCase().trim();
-    const hdg = parseInt(document.getElementById("heading").value);
 
-    const turnDir = document.querySelector('input[name="turnDir"]:checked').value;
+    const hdg = parseInt(document.getElementById("heading").value);
+    const lvl = parseInt(document.getElementById("level").value);
+
+    const turnDir =
+        document.querySelector('input[name="turnDir"]:checked').value;
 
     aircraft.forEach(ac=>{
 
         if(ac.callsign===cs){
 
-            ac.targetHeading = hdg;
-            ac.turnDirection = turnDir;
+            if(!isNaN(hdg)){
+                ac.targetHeading = hdg;
+                ac.turnDirection = turnDir;
+            }
 
-            console.log("Assigned:", ac.callsign, hdg, turnDir);
+            if(!isNaN(lvl)){
+                ac.targetLevel = lvl;
+            }
+
+            console.log(
+                ac.callsign,
+                "Current FL:", ac.level,
+                "Assigned FL:", ac.targetLevel
+            );
 
         }
 
