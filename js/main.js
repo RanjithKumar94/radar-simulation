@@ -125,23 +125,25 @@ function moveAircraft(){
 
         let movement;
 
+        // Speed (NM/sec)
         if(ac.type==="ATR72" || ac.type==="DO228"){
 
             movement = 4.0/60;
 
         }else{
 
-            movement = (ac.distance>30)?5.5/60:5.0/60;
+            movement = (ac.distance>30) ? 5.5/60 : 5.0/60;
 
         }
 
-        // Smooth turn
+        // Turn towards assigned heading
         if(ac.heading !== ac.targetHeading){
 
             let diff = (ac.targetHeading - ac.heading + 360) % 360;
 
-            if(diff > 180)
+            if(diff > 180){
                 diff -= 360;
+            }
 
             if(Math.abs(diff) <= 3){
 
@@ -149,18 +151,31 @@ function moveAircraft(){
 
             }else{
 
-                ac.heading += (diff > 0 ? 3 : -3);
+                ac.heading += (diff > 0) ? 3 : -3;
 
-                if(ac.heading < 0) ac.heading += 360;
-                if(ac.heading >= 360) ac.heading -= 360;
+                if(ac.heading < 0){
+                    ac.heading += 360;
+                }
+
+                if(ac.heading >= 360){
+                    ac.heading -= 360;
+                }
 
             }
 
         }
 
+        console.log(
+            ac.callsign,
+            "Current:", ac.heading,
+            "Target:", ac.targetHeading
+        );
+
+        // Convert movement to pixels
         const pixelsPerNM = RADAR_RADIUS / MAX_RANGE;
         const pixels = movement * pixelsPerNM;
 
+        // Move according to heading
         const angle = (ac.heading - 90) * Math.PI / 180;
 
         ac.x += Math.cos(angle) * pixels;
@@ -171,27 +186,14 @@ function moveAircraft(){
         if(ac.distance <= 0){
 
             ac.active = false;
-
-            console.log(ac.callsign+" reached CCB");
+            console.log(ac.callsign + " reached CCB");
 
         }
 
     });
 
-    
-
-    console.log(
-    ac.callsign,
-    "Current:", ac.heading,
-    "Target:", ac.targetHeading
-);
-
-const pixelsPerNM = RADAR_RADIUS / MAX_RANGE;
-const pixels = movement * pixelsPerNM;
-
-const angle = (ac.heading - 90) * Math.PI / 180;
-
 }
+
 //--------------------------------------
 // Start Simulator
 //--------------------------------------
