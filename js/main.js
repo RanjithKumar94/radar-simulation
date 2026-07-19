@@ -34,6 +34,22 @@ function entryOffset(type) {
     }
 
 }
+document.getElementById("applyBtn").onclick = function(){
+
+    const cs = document.getElementById("callsign").value.toUpperCase();
+    const hdg = parseInt(document.getElementById("heading").value);
+
+    aircraft.forEach(ac => {
+
+        if(ac.callsign === cs){
+
+            ac.targetHeading = hdg;
+
+        }
+
+    });
+
+};
 
 //--------------------------------------
 // Clock
@@ -119,6 +135,35 @@ function moveAircraft() {
             }
 
         }
+
+        // Smooth turn at 3° per second
+
+if(ac.heading !== ac.targetHeading){
+
+    let diff = (ac.targetHeading - ac.heading + 360) % 360;
+
+    if(diff > 180)
+        diff -= 360;
+
+    if(Math.abs(diff) <= 3){
+
+        ac.heading = ac.targetHeading;
+
+    }else{
+
+        ac.heading += (diff > 0 ? 3 : -3);
+
+        if(ac.heading < 0)
+            ac.heading += 360;
+
+        if(ac.heading >= 360)
+            ac.heading -= 360;
+
+    }
+
+}
+
+        const angle = (ac.heading-90) * Math.PI/180;
 
         ac.distance -= movement;
         console.log(ac.callsign + " Distance: " + ac.distance);
