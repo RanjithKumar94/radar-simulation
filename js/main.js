@@ -6,7 +6,7 @@ let selectedAircraft = null;
 let unknownBlips = [];
 document.getElementById("rwy26Blip").onclick = function(){
 
-    const start = bearingToXY(50, 60);   // R050 at 60 NM
+    const start = bearingToXY(30, 60);   // R030 at 60 NM
 
     unknownBlips.push({
 
@@ -133,7 +133,31 @@ function spawnAircraft(){
 //--------------------------------------
 // Move Aircraft
 //--------------------------------------
+function moveUnknownBlips(){
 
+    unknownBlips.forEach(blip=>{
+
+        const movement = (blip.speed / 60) / 60; // NM per second
+
+        const pixels = movement * PIXELS_PER_NM;
+
+        const angle = (blip.heading - 90) * Math.PI / 180;
+
+        blip.x += Math.cos(angle) * pixels;
+        blip.y += Math.sin(angle) * pixels;
+
+    });
+
+    unknownBlips = unknownBlips.filter(blip=>{
+
+        const dx = blip.x - CCB.x;
+        const dy = blip.y - CCB.y;
+
+        return Math.sqrt(dx*dx + dy*dy) < RADAR_RADIUS + 20;
+
+    });
+
+}
 
 function moveAircraft(){
 
