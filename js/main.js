@@ -36,18 +36,45 @@ function entryOffset(type) {
 }
 document.getElementById("applyBtn").onclick = function(){
 
-    const cs = document.getElementById("callsign").value.toUpperCase();
+    const cs = document.getElementById("callsign").value.toUpperCase().trim();
     const hdg = parseInt(document.getElementById("heading").value);
+
+    if(isNaN(hdg) || hdg < 1 || hdg > 360){
+        alert("Enter a heading between 1 and 360");
+        return;
+    }
+
+    const turnDir = document.querySelector(
+        'input[name="turnDir"]:checked'
+    ).value;
+
+    let found = false;
 
     aircraft.forEach(ac => {
 
         if(ac.callsign === cs){
 
             ac.targetHeading = hdg;
+            ac.turnDirection = turnDir;
+
+            found = true;
+
+            console.log(
+                ac.callsign +
+                " -> Heading " +
+                hdg +
+                " (" +
+                turnDir +
+                ")"
+            );
 
         }
 
     });
+
+    if(!found){
+        alert("Aircraft not found.");
+    }
 
 };
 
