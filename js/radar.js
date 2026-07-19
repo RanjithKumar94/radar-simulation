@@ -118,55 +118,111 @@ function drawRunway(){
     ctx.fillText("26",p2.x+8,p2.y+8);
 
 }
+
+// ======================================
+// Draw Extended Runway Centreline
+// ======================================
+
+function drawCentreline(){
+
+    const start = bearingToXY(260,15);
+    const end   = bearingToXY(80,15);
+
+    ctx.save();
+
+    ctx.strokeStyle="#FFFF00";
+    ctx.lineWidth=2;
+    ctx.setLineDash([10,6]);
+
+    ctx.beginPath();
+    ctx.moveTo(start.x,start.y);
+    ctx.lineTo(end.x,end.y);
+    ctx.stroke();
+
+    ctx.restore();
+
+}
+// ======================================
+// Draw Traffic Circuit RWY 08/26
+// ======================================
+
 function drawTrafficCircuit(){
 
-    // Runway thresholds (same as drawRunway)
+    // Runway thresholds
     const rwy08 = bearingToXY(260,10);
     const rwy26 = bearingToXY(80,10);
 
-    const offset = nm(5);      // 5 NM north/south
-    const ext = nm(12);        // 12 NM beyond thresholds
-    const final = nm(8);       // 8 NM final
+    // 15 NM centreline extension
+    const ext08 = bearingToXY(260,25);
+    const ext26 = bearingToXY(80,25);
+
+    // 5 NM offset (north side)
+    const offset = nm(5);
 
     ctx.strokeStyle="#FFFF00";
     ctx.lineWidth=2;
 
-    // -------------------------
-    // Extended runway centreline
-    // -------------------------
-    ctx.setLineDash([10,8]);
+    // --------------------------
+    // Extended centreline
+    // --------------------------
+    ctx.setLineDash([8,8]);
 
     ctx.beginPath();
-    ctx.moveTo(rwy08.x-ext, rwy08.y);
-    ctx.lineTo(rwy26.x+ext, rwy26.y);
+    ctx.moveTo(ext08.x,ext08.y);
+    ctx.lineTo(ext26.x,ext26.y);
     ctx.stroke();
 
     ctx.setLineDash([]);
 
-    // -------------------------
-    // Traffic circuit
-    // -------------------------
+    // --------------------------
+    // Calculate runway direction
+    // --------------------------
+    const dx = rwy26.x-rwy08.x;
+    const dy = rwy26.y-rwy08.y;
+
+    const len = Math.sqrt(dx*dx+dy*dy);
+
+    const ux = dx/len;
+    const uy = dy/len;
+
+    // Perpendicular vector
+    const px = -uy;
+    const py = ux;
+
+    // Circuit points
+    const p1 = {
+        x:rwy08.x + px*offset,
+        y:rwy08.y + py*offset
+    };
+
+    const p2 = {
+        x:rwy26.x + px*offset,
+        y:rwy26.y + py*offset
+    };
+
+    const p3 = {
+        x:ext26.x + px*offset,
+        y:ext26.y + py*offset
+    };
+
+    const p4 = {
+        x:ext08.x + px*offset,
+        y:ext08.y + py*offset
+    };
+
+    // --------------------------
+    // Draw circuit
+    // --------------------------
     ctx.beginPath();
 
-    // Final
-    ctx.moveTo(rwy08.x-final, rwy08.y);
+    ctx.moveTo(rwy08.x,rwy08.y);
+    ctx.lineTo(rwy26.x,rwy26.y);
 
-    // Threshold
-    ctx.lineTo(rwy08.x, rwy08.y);
+    ctx.lineTo(p3.x,p3.y);
 
-    // Upwind
-    ctx.lineTo(rwy26.x, rwy26.y);
+    ctx.lineTo(p4.x,p4.y);
 
-    // Crosswind
-    ctx.lineTo(rwy26.x+ext, rwy26.y);
-
-    // Downwind
-    ctx.lineTo(rwy26.x+ext, rwy26.y-offset);
-
-    ctx.lineTo(rwy08.x-ext, rwy08.y-offset);
-
-    // Base
-    ctx.lineTo(rwy08.x-ext, rwy08.y);
+    ctx.lineTo(rwy08.x,rwy08.y);
 
     ctx.stroke();
 
@@ -296,6 +352,7 @@ function drawRadar(){
     drawRoutes();
     drawRunway();
     drawTrafficCircuit();
+    drawCentreline();
     drawCCB();
 
     // Draw aircraft
