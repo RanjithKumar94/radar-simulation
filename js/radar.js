@@ -147,14 +147,10 @@ function drawCentreline(){
 // ======================================
 
 function drawTrafficCircuit(){
-
-
     const end08 = bearingToXY(260,12);
     const end26 = bearingToXY(80,12);
-
     const dx = end26.x - end08.x;
     const dy = end26.y - end08.y;
-
     const len = Math.sqrt(dx*dx + dy*dy);
 
     const px = -dy / len;
