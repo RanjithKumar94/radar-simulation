@@ -309,7 +309,12 @@ ctx.stroke();
 ctx.font="14px Consolas";
 ctx.fillStyle="#00FF00";
 
-
+console.log(
+    ac.callsign,
+    "Level:", ac.level,
+    "Target:", ac.targetLevel,
+    levelText
+);
 ctx.fillText(ac.callsign, lx+5, ly-5);
 
 // Level display
