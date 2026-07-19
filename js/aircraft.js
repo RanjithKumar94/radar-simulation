@@ -13,7 +13,7 @@ y:0,
 
 heading:10,
 targetHeading:10,
-
+turnDirection:"SHORTEST",
 level:180,
 targetLevel:180,
 
@@ -40,7 +40,7 @@ y:0,
 
 heading:170,
 targetHeading:170,
-
+turnDirection:"SHORTEST",
 level:190,
 targetLevel:190,
 
@@ -65,7 +65,7 @@ y:0,
 labelAngle:0,
 heading:170,
 targetHeading:170,
-
+turnDirection:"SHORTEST",
 level:160,
 targetLevel:160,
 
@@ -90,7 +90,7 @@ y:0,
 labelAngle:0,
 heading:300,
 targetHeading:300,
-
+turnDirection:"SHORTEST",
 level:180,
 targetLevel:180,
 
@@ -116,7 +116,7 @@ y:0,
 labelAngle:0,
 heading:120,
 targetHeading:120,
-
+turnDirection:"SHORTEST",
 level:110,
 targetLevel:110,
 
@@ -141,7 +141,7 @@ y:0,
 labelAngle:0,
 heading:250,
 targetHeading:250,
-
+turnDirection:"SHORTEST",
 level:190,
 targetLevel:190,
 
@@ -166,7 +166,7 @@ y:0,
 labelAngle:0,
 heading:72,
 targetHeading:72,
-
+turnDirection:"SHORTEST",
 level:180,
 targetLevel:180,
 
@@ -191,7 +191,7 @@ y:0,
 labelAngle:0,
 heading:10,
 targetHeading:10,
-
+turnDirection:"SHORTEST",
 level:110,
 targetLevel:110,
 
@@ -219,7 +219,7 @@ targetHeading:268,
 
 level:80,
 targetLevel:80,
-
+turnDirection:"SHORTEST",
 speed:180,
 targetSpeed:180,
 
