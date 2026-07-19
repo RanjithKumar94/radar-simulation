@@ -3,6 +3,24 @@
 // ATC Simulator Engine
 // ======================================
 let selectedAircraft = null;
+let unknownBlips = [];
+document.getElementById("rwy26Blip").onclick = function(){
+
+    const start = bearingToXY(50, 60);   // R050 at 60 NM
+
+    unknownBlips.push({
+
+        x: start.x,
+        y: start.y,
+
+        heading: 180,      // South
+        speed: 480,
+
+        active: true
+
+    });
+
+};
 // Simulation Time
 let simHour = 3;
 let simMinute = 0;
