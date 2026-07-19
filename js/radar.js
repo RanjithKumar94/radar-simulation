@@ -120,43 +120,53 @@ function drawRunway(){
 }
 function drawTrafficCircuit(){
 
-    const cx = CENTER_X;
-    const cy = CENTER_Y;
+    // Runway thresholds (same as drawRunway)
+    const rwy08 = bearingToXY(260,10);
+    const rwy26 = bearingToXY(80,10);
 
-    const left = nm(12);
-    const right = nm(12);
-    const offset = nm(5);
-    const finalLeg = nm(8);
+    const offset = nm(5);      // 5 NM north/south
+    const ext = nm(12);        // 12 NM beyond thresholds
+    const final = nm(8);       // 8 NM final
 
-    ctx.strokeStyle="#00FF00";
+    ctx.strokeStyle="#FFFF00";
     ctx.lineWidth=2;
 
-    // Centreline extension
-    ctx.setLineDash([8,8]);
+    // -------------------------
+    // Extended runway centreline
+    // -------------------------
+    ctx.setLineDash([10,8]);
 
     ctx.beginPath();
-    ctx.moveTo(cx-nm(15),cy);
-    ctx.lineTo(cx+nm(15),cy);
+    ctx.moveTo(rwy08.x-ext, rwy08.y);
+    ctx.lineTo(rwy26.x+ext, rwy26.y);
     ctx.stroke();
 
     ctx.setLineDash([]);
 
-    // Circuit
+    // -------------------------
+    // Traffic circuit
+    // -------------------------
     ctx.beginPath();
 
-    ctx.moveTo(cx-finalLeg,cy);
+    // Final
+    ctx.moveTo(rwy08.x-final, rwy08.y);
 
-    ctx.lineTo(cx-left,cy);
+    // Threshold
+    ctx.lineTo(rwy08.x, rwy08.y);
 
-    ctx.lineTo(cx-left,cy-offset);
+    // Upwind
+    ctx.lineTo(rwy26.x, rwy26.y);
 
-    ctx.lineTo(cx+right,cy-offset);
+    // Crosswind
+    ctx.lineTo(rwy26.x+ext, rwy26.y);
 
-    ctx.lineTo(cx+right,cy+offset);
+    // Downwind
+    ctx.lineTo(rwy26.x+ext, rwy26.y-offset);
 
-    ctx.lineTo(cx-finalLeg,cy+offset);
+    ctx.lineTo(rwy08.x-ext, rwy08.y-offset);
 
-    ctx.lineTo(cx-finalLeg,cy);
+    // Base
+    ctx.lineTo(rwy08.x-ext, rwy08.y);
 
     ctx.stroke();
 
