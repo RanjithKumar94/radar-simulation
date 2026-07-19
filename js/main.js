@@ -101,7 +101,19 @@ function updateClock(){
 //--------------------------------------
 // Spawn Aircraft
 //--------------------------------------
+function spawnRWY26Unknown() {
 
+    const start = bearingToXY(50, 60);
+
+    unknownBlips.push({
+        x: start.x,
+        y: start.y,
+        heading: 180,
+        speed: 480,
+        active: true
+    });
+
+}
 function spawnAircraft(){
 
     aircraft.forEach(ac=>{
@@ -347,5 +359,7 @@ setInterval(function(){
     spawnAircraft();
 
     moveAircraft();
+    moveUnknownBlips();
+
 
 },1000);
