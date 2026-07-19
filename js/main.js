@@ -120,7 +120,7 @@ function moveAircraft() {
         }
 
         ac.distance -= movement;
-        console.log(ac.callsign, ac.distance);
+        console.log(ac.callsign + " Distance: " + ac.distance);
 
         if (ac.distance <= 0) {
             ac.active = false;
