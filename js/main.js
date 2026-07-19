@@ -179,7 +179,7 @@ function moveAircraft(){
     });
 
     
-);
+
     console.log(
     ac.callsign,
     "Current:", ac.heading,
