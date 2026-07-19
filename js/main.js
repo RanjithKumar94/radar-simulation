@@ -2,7 +2,7 @@
 // main.js
 // ATC Simulator Engine
 // ======================================
-
+let selectedAircraft = null;
 // Simulation Time
 let simHour = 3;
 let simMinute = 0;
