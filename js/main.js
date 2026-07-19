@@ -201,19 +201,57 @@ function moveAircraft(){
     }
 
     // Stop turning when target reached
-    let error = (ac.targetHeading - ac.heading + 360) % 360;
+let error = (ac.targetHeading - ac.heading + 360) % 360;
 
-    if(error > 180)
-        error -= 360;
+if(error > 180)
+    error -= 360;
 
-    if(Math.abs(error) <= turnRate){
+if(Math.abs(error) <= turnRate){
 
-        ac.heading = ac.targetHeading;
-        ac.turnDirection = "SHORTEST";
+    ac.heading = ac.targetHeading;
+    ac.turnDirection = "SHORTEST";
 
+}
+
+// ===============================
+// Smooth Climb / Descent
+// ===============================
+
+const climbRate = 1;   // 1 FL per second
+
+if(ac.level < ac.targetLevel){
+
+    ac.level += climbRate;
+    ac.verticalSpeed = 1500;
+
+    if(ac.level >= ac.targetLevel){
+        ac.level = ac.targetLevel;
+        ac.verticalSpeed = 0;
     }
 
 }
+else if(ac.level > ac.targetLevel){
+
+    ac.level -= climbRate;
+    ac.verticalSpeed = -1500;
+
+    if(ac.level <= ac.targetLevel){
+        ac.level = ac.targetLevel;
+        ac.verticalSpeed = 0;
+    }
+
+}
+else{
+
+    ac.verticalSpeed = 0;
+
+}
+
+console.log(
+    ac.callsign,
+    "Current:", ac.heading,
+    "Target:", ac.targetHeading
+);
 
         
 
