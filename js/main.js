@@ -147,9 +147,9 @@ function spawnAircraft(){
 //--------------------------------------
 function moveUnknownBlips(){
 
-    unknownBlips.forEach(blip=>{
+    unknownBlips.forEach(blip => {
 
-        const movement = (blip.speed / 60) / 60; // NM per second
+        const movement = blip.speed / 3600; // NM per second
 
         const pixels = movement * PIXELS_PER_NM;
 
@@ -157,15 +157,6 @@ function moveUnknownBlips(){
 
         blip.x += Math.cos(angle) * pixels;
         blip.y += Math.sin(angle) * pixels;
-
-    });
-
-    unknownBlips = unknownBlips.filter(blip=>{
-
-        const dx = blip.x - CCB.x;
-        const dy = blip.y - CCB.y;
-
-        return Math.sqrt(dx*dx + dy*dy) < RADAR_RADIUS + 20;
 
     });
 
