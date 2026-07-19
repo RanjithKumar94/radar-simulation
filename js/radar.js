@@ -179,8 +179,10 @@ function drawAircraft(){
 
         if(!ac.active) return;
 
-        const pos = bearingToXY(ac.entryRadial, ac.distance);
-
+const pos = {
+    x: ac.x,
+    y: ac.y
+};
         // Aircraft symbol
         ctx.fillStyle="#00FF00";
 
