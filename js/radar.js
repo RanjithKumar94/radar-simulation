@@ -350,5 +350,44 @@ window.onload = function(){
     drawRadar();
 
 };
+// ======================================
+// Label Click Detection
+// ======================================
+
+canvas.addEventListener("click", function(e){
+
+    const rect = canvas.getBoundingClientRect();
+
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+
+    aircraft.forEach(ac=>{
+
+        if(!ac.active) return;
+
+        const angle = ac.labelAngle * Math.PI / 180;
+
+        const leaderLength = 35;
+
+        const lx = ac.x + Math.cos(angle) * leaderLength;
+        const ly = ac.y + Math.sin(angle) * leaderLength;
+
+        // Label hit box
+        if(
+            mx >= lx &&
+            mx <= lx + 100 &&
+            my >= ly - 15 &&
+            my <= ly + 35
+        ){
+
+            ac.labelAngle = (ac.labelAngle + 45) % 360;
+
+            console.log(ac.callsign + " label rotated");
+
+        }
+
+    });
+
+});
 
 
