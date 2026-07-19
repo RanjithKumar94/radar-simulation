@@ -274,6 +274,16 @@ const CIRCUIT = {
 
 function drawAircraft(){
 
+    unknownBlips.forEach(blip=>{
+
+    ctx.fillStyle = "#00FF00";
+
+    ctx.beginPath();
+    ctx.arc(blip.x, blip.y, 2, 0, Math.PI*2);
+    ctx.fill();
+
+});
+
     if(typeof aircraft === "undefined") return;
 
     aircraft.forEach(ac => {
