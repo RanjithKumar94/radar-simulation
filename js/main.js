@@ -88,7 +88,7 @@ function spawnAircraft(){
 
     aircraft.forEach(ac=>{
 
-        if(ac.active) return;
+        if(ac.spawned) return;
 
         const spawnTime =
             timeToMinutes(ac.ccbETA) -
@@ -96,7 +96,13 @@ function spawnAircraft(){
 
         if(currentMinutes()>=spawnTime){
 
-            ac.active=true;
+            const start = bearingToXY(ac.entryRadial,60);
+
+            ac.x = start.x;
+            ac.y = start.y;
+
+            ac.spawned = true;
+            ac.active = true;
 
             console.log(ac.callsign+" entered");
 
@@ -111,66 +117,63 @@ function spawnAircraft(){
 //--------------------------------------
 
 
-function moveAircraft() {
-    console.log("moveAircraft running");
+function moveAircraft(){
 
-    aircraft.forEach(ac => {
+    aircraft.forEach(ac=>{
 
-        if (!ac.active) return;
+        if(!ac.active) return;
 
         let movement;
 
-        // ATR / DO228
-        if (ac.type === "ATR72" || ac.type === "DO228") {
+        if(ac.type==="ATR72" || ac.type==="DO228"){
 
-            movement = 4.0 / 60;
+            movement = 4.0/60;
 
-        } else {
+        }else{
 
-            // Jets
-            if (ac.distance > 30) {
-                movement = 5.5 / 60;
-            } else {
-                movement = 5.0 / 60;
+            movement = (ac.distance>30)?5.5/60:5.0/60;
+
+        }
+
+        // Smooth turn
+        if(ac.heading !== ac.targetHeading){
+
+            let diff = (ac.targetHeading - ac.heading + 360) % 360;
+
+            if(diff > 180)
+                diff -= 360;
+
+            if(Math.abs(diff) <= 3){
+
+                ac.heading = ac.targetHeading;
+
+            }else{
+
+                ac.heading += (diff > 0 ? 3 : -3);
+
+                if(ac.heading < 0) ac.heading += 360;
+                if(ac.heading >= 360) ac.heading -= 360;
+
             }
 
         }
 
-        // Smooth turn at 3° per second
+        const pixelsPerNM = RADAR_RADIUS / MAX_RANGE;
+        const pixels = movement * pixelsPerNM;
 
-if(ac.heading !== ac.targetHeading){
+        const angle = (ac.heading - 90) * Math.PI / 180;
 
-    let diff = (ac.targetHeading - ac.heading + 360) % 360;
-
-    if(diff > 180)
-        diff -= 360;
-
-    if(Math.abs(diff) <= 3){
-
-        ac.heading = ac.targetHeading;
-
-    }else{
-
-        ac.heading += (diff > 0 ? 3 : -3);
-
-        if(ac.heading < 0)
-            ac.heading += 360;
-
-        if(ac.heading >= 360)
-            ac.heading -= 360;
-
-    }
-
-}
-
-        const angle = (ac.heading-90) * Math.PI/180;
+        ac.x += Math.cos(angle) * pixels;
+        ac.y += Math.sin(angle) * pixels;
 
         ac.distance -= movement;
-        console.log(ac.callsign + " Distance: " + ac.distance);
 
-        if (ac.distance <= 0) {
+        if(ac.distance <= 0){
+
             ac.active = false;
-            console.log(ac.callsign + " reached CCB");
+
+            console.log(ac.callsign+" reached CCB");
+
         }
 
     });
