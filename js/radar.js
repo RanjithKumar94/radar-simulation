@@ -271,18 +271,29 @@ const CIRCUIT = {
 // ======================================
 // Draw Aircraft
 // ======================================
+// ======================================
+// Draw Unknown Blips
+// ======================================
+
+function drawUnknownBlips(){
+
+    unknownBlips.forEach(blip => {
+
+        if(!blip.active) return;
+
+        ctx.beginPath();
+        ctx.arc(blip.x, blip.y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = "#00FF00";
+        ctx.fill();
+
+    });
+
+}
+// ======================================
+// Draw Aircraft
+// ======================================
 
 function drawAircraft(){
-
-    unknownBlips.forEach(blip=>{
-
-    ctx.fillStyle = "#00FF00";
-
-    ctx.beginPath();
-    ctx.arc(blip.x, blip.y, 2, 0, Math.PI*2);
-    ctx.fill();
-
-});
 
     if(typeof aircraft === "undefined") return;
 
@@ -290,82 +301,70 @@ function drawAircraft(){
 
         if(!ac.active) return;
 
-        const pos = {
-            x: ac.x,
-            y: ac.y
-        };
-
-        // Aircraft symbol
-        ctx.fillStyle = "#00FF00";
         ctx.beginPath();
-        ctx.arc(pos.x, pos.y, 4, 0, Math.PI * 2);
+        ctx.arc(ac.x, ac.y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = "#00FF00";
         ctx.fill();
 
-        // Leader line
         const angle = ac.labelAngle * Math.PI / 180;
         const leaderLength = 35;
 
-        const lx = pos.x + Math.cos(angle) * leaderLength;
-        const ly = pos.y + Math.sin(angle) * leaderLength;
+        const lx = ac.x + Math.cos(angle) * leaderLength;
+        const ly = ac.y + Math.sin(angle) * leaderLength;
 
         ctx.beginPath();
-        ctx.moveTo(pos.x, pos.y);
+        ctx.moveTo(ac.x, ac.y);
         ctx.lineTo(lx, ly);
         ctx.strokeStyle = "#00FF00";
         ctx.stroke();
 
-        // Label
         ctx.font = "14px Consolas";
         ctx.fillStyle = "#00FF00";
 
         ctx.fillText(ac.callsign, lx + 5, ly - 5);
 
-        const currentFL = Math.round(ac.level);
-        const assignedFL = Math.round(ac.targetLevel);
-
         let levelText;
 
-        if(currentFL < assignedFL){
-            levelText = "FL" + currentFL + " ↑ FL" + assignedFL;
-        }
-        else if(currentFL > assignedFL){
-            levelText = "FL" + currentFL + " ↓ FL" + assignedFL;
-        }
-        else{
-            levelText = "FL" + currentFL;
+        if(ac.level < ac.targetLevel){
+
+            levelText = "FL" + Math.round(ac.level) +
+                        " ↑ FL" + Math.round(ac.targetLevel);
+
+        }else if(ac.level > ac.targetLevel){
+
+            levelText = "FL" + Math.round(ac.level) +
+                        " ↓ FL" + Math.round(ac.targetLevel);
+
+        }else{
+
+            levelText = "FL" + Math.round(ac.level);
+
         }
 
         ctx.fillText(levelText, lx + 5, ly + 10);
-
         ctx.fillText(ac.speed + "KT", lx + 5, ly + 25);
 
     });
 
 }
-
-
-
 // ======================================
 // Draw Complete Radar
 // ======================================
 
 function drawRadar(){
 
-    // Clear screen
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    // Draw radar
     drawBackground();
     drawRoutes();
     drawRunway();
     drawTrafficCircuit();
     drawCentreline();
     drawCCB();
-drawUnknownBlips();
-    // Draw aircraft
+
+    drawUnknownBlips();
     drawAircraft();
 
-    // Continue animation
     requestAnimationFrame(drawRadar);
 
 }
