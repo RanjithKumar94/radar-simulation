@@ -89,6 +89,46 @@ function spawnAircraft(){
     });
 
 }
+
+//--------------------------------------
+// Move Aircraft
+//--------------------------------------
+
+
+function moveAircraft() {
+
+    aircraft.forEach(ac => {
+
+        if (!ac.active) return;
+
+        let movement;
+
+        // ATR / DO228
+        if (ac.type === "ATR72" || ac.type === "DO228") {
+
+            movement = 4.0 / 60;
+
+        } else {
+
+            // Jets
+            if (ac.distance > 30) {
+                movement = 5.5 / 60;
+            } else {
+                movement = 5.0 / 60;
+            }
+
+        }
+
+        ac.distance -= movement;
+
+        if (ac.distance <= 0) {
+            ac.active = false;
+            console.log(ac.callsign + " reached CCB");
+        }
+
+    });
+
+}
 //--------------------------------------
 // Start Simulator
 //--------------------------------------
