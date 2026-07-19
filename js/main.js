@@ -96,6 +96,7 @@ function spawnAircraft(){
 
 
 function moveAircraft() {
+    console.log("moveAircraft running");
 
     aircraft.forEach(ac => {
 
