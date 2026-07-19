@@ -198,7 +198,7 @@ function moveAircraft(){
 
 }
 
-        }
+        
 
         console.log(
             ac.callsign,
