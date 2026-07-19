@@ -148,85 +148,32 @@ function drawCentreline(){
 
 function drawTrafficCircuit(){
 
-    // Runway thresholds
-    const rwy08 = bearingToXY(260,10);
-    const rwy26 = bearingToXY(80,10);
+    // 12 NM from each threshold
+const end08 = bearingToXY(260,22); // 10 NM runway threshold + 12 NM
+const end26 = bearingToXY(80,22);
 
-    // 15 NM centreline extension
-    const ext08 = bearingToXY(260,25);
-    const ext26 = bearingToXY(80,25);
+// 5 NM offsets
+const top08 = { x: end08.x + px*offset, y: end08.y + py*offset };
+const top26 = { x: end26.x + px*offset, y: end26.y + py*offset };
 
-    // 5 NM offset (north side)
-    const offset = nm(5);
+const bot08 = { x: end08.x - px*offset, y: end08.y - py*offset };
+const bot26 = { x: end26.x - px*offset, y: end26.y - py*offset };
 
-    ctx.strokeStyle="#FFFF00";
-    ctx.lineWidth=2;
+// Upper box
+ctx.beginPath();
+ctx.moveTo(end08.x,end08.y);
+ctx.lineTo(top08.x,top08.y);
+ctx.lineTo(top26.x,top26.y);
+ctx.lineTo(end26.x,end26.y);
+ctx.stroke();
 
-    // --------------------------
-    // Extended centreline
-    // --------------------------
-    ctx.setLineDash([8,8]);
-
-    ctx.beginPath();
-    ctx.moveTo(ext08.x,ext08.y);
-    ctx.lineTo(ext26.x,ext26.y);
-    ctx.stroke();
-
-    ctx.setLineDash([]);
-
-    // --------------------------
-    // Calculate runway direction
-    // --------------------------
-    const dx = rwy26.x-rwy08.x;
-    const dy = rwy26.y-rwy08.y;
-
-    const len = Math.sqrt(dx*dx+dy*dy);
-
-    const ux = dx/len;
-    const uy = dy/len;
-
-    // Perpendicular vector
-    const px = -uy;
-    const py = ux;
-
-    // Circuit points
-    const p1 = {
-        x:rwy08.x + px*offset,
-        y:rwy08.y + py*offset
-    };
-
-    const p2 = {
-        x:rwy26.x + px*offset,
-        y:rwy26.y + py*offset
-    };
-
-    const p3 = {
-        x:ext26.x + px*offset,
-        y:ext26.y + py*offset
-    };
-
-    const p4 = {
-        x:ext08.x + px*offset,
-        y:ext08.y + py*offset
-    };
-
-    // --------------------------
-    // Draw circuit
-    // --------------------------
-    ctx.beginPath();
-
-    ctx.moveTo(rwy08.x,rwy08.y);
-    ctx.lineTo(rwy26.x,rwy26.y);
-
-    ctx.lineTo(p3.x,p3.y);
-
-    ctx.lineTo(p4.x,p4.y);
-
-    ctx.lineTo(rwy08.x,rwy08.y);
-
-    ctx.stroke();
-
-}
+// Lower box
+ctx.beginPath();
+ctx.moveTo(end08.x,end08.y);
+ctx.lineTo(bot08.x,bot08.y);
+ctx.lineTo(bot26.x,bot26.y);
+ctx.lineTo(end26.x,end26.y);
+ctx.stroke();
 
 // ======================================
 // Draw CCB VOR
