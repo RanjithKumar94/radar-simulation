@@ -399,20 +399,25 @@ canvas.addEventListener("click", function(e){
 
         // Label hit box
         if(
-            mx >= lx &&
-            mx <= lx + 100 &&
-            my >= ly - 15 &&
-            my <= ly + 35
-        ){
+    mx >= lx &&
+    mx <= lx + 100 &&
+    my >= ly - 15 &&
+    my <= ly + 35
+){
 
-            ac.labelAngle = (ac.labelAngle + 45) % 360;
+    // Select aircraft
+    selectedAircraft = ac;
 
-            console.log(ac.callsign + " label rotated");
+    // Fill control panel
+    document.getElementById("callsign").value = ac.callsign;
+    document.getElementById("heading").value = ac.targetHeading;
+    document.getElementById("level").value = ac.targetLevel;
 
-        }
+    // Select turn direction
+    document.querySelector(
+        `input[name="turnDir"][value="${ac.turnDirection}"]`
+    ).checked = true;
 
-    });
+    console.log(ac.callsign + " selected");
 
-});
-
-
+}
