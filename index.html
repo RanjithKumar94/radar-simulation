@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ATC Radar Simulator</title>
+    <title>ATC Radar Simulator</title>
 
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -16,7 +17,7 @@
 <div id="container">
 
     <!-- ========================= -->
-    <!-- Radar Display -->
+    <!-- Radar Screen -->
     <!-- ========================= -->
 
     <div id="radarContainer">
@@ -37,20 +38,33 @@
 
         <h2>ATC Control Panel</h2>
 
-        <label>Callsign</label>
+        <label>Callsign</label><br>
         <input
             type="text"
             id="callsign"
             placeholder="IGO201"
         >
 
-        <label>Heading</label>
+        <br><br>
+
+        <label>Heading</label><br>
         <input
             type="number"
             id="heading"
             min="1"
             max="360"
-            placeholder="090"
+            placeholder="270"
+        >
+
+        <br><br>
+
+        <label>Flight Level (FL)</label><br>
+        <input
+            type="number"
+            id="level"
+            min="10"
+            max="450"
+            placeholder="110"
         >
 
         <br><br>
@@ -94,7 +108,7 @@
         <br><br>
 
         <button id="applyBtn">
-            Apply Heading
+            Apply Clearance
         </button>
 
     </div>
@@ -106,10 +120,5 @@
 <script src="js/main.js"></script>
 
 </body>
+
 </html>
-
-    
-
-            
-
-        
