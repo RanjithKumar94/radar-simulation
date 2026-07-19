@@ -310,7 +310,32 @@ ctx.font="14px Consolas";
 ctx.fillStyle="#00FF00";
 
 ctx.fillText(ac.callsign,lx+5,ly-5);
-ctx.fillText("FL"+Math.round(ac.level),lx+5,ly+10);
+let levelText;
+
+const currentFL = Math.round(ac.level);
+const assignedFL = Math.round(ac.targetLevel);
+
+if(currentFL < assignedFL){
+
+    levelText = "FL" + currentFL + " ↑ FL" + assignedFL;
+
+}
+else if(currentFL > assignedFL){
+
+    levelText = "FL" + currentFL + " ↓ FL" + assignedFL;
+
+}
+else{
+
+    levelText = "FL" + currentFL;
+
+}
+
+ctx.fillText(
+    levelText,
+    labelX,
+    labelY + 15
+);
 ctx.fillText(ac.speed+"KT",lx+5,ly+25);
 
     });
