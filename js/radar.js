@@ -148,33 +148,59 @@ function drawCentreline(){
 
 function drawTrafficCircuit(){
 
-    // 12 NM from each threshold
-const end08 = bearingToXY(260,22); // 10 NM runway threshold + 12 NM
-const end26 = bearingToXY(80,22);
+    const end08 = bearingToXY(260,12);
+    const end26 = bearingToXY(80,12);
 
-// 5 NM offsets
-const top08 = { x: end08.x + px*offset, y: end08.y + py*offset };
-const top26 = { x: end26.x + px*offset, y: end26.y + py*offset };
+    const dx = end26.x - end08.x;
+    const dy = end26.y - end08.y;
 
-const bot08 = { x: end08.x - px*offset, y: end08.y - py*offset };
-const bot26 = { x: end26.x - px*offset, y: end26.y - py*offset };
+    const len = Math.sqrt(dx*dx + dy*dy);
 
-// Upper box
-ctx.beginPath();
-ctx.moveTo(end08.x,end08.y);
-ctx.lineTo(top08.x,top08.y);
-ctx.lineTo(top26.x,top26.y);
-ctx.lineTo(end26.x,end26.y);
-ctx.stroke();
+    const px = -dy / len;
+    const py = dx / len;
 
-// Lower box
-ctx.beginPath();
-ctx.moveTo(end08.x,end08.y);
-ctx.lineTo(bot08.x,bot08.y);
-ctx.lineTo(bot26.x,bot26.y);
-ctx.lineTo(end26.x,end26.y);
-ctx.stroke();
+    const offset = nm(5);
 
+    const top08 = {
+        x:end08.x + px*offset,
+        y:end08.y + py*offset
+    };
+
+    const top26 = {
+        x:end26.x + px*offset,
+        y:end26.y + py*offset
+    };
+
+    const bot08 = {
+        x:end08.x - px*offset,
+        y:end08.y - py*offset
+    };
+
+    const bot26 = {
+        x:end26.x - px*offset,
+        y:end26.y - py*offset
+    };
+
+    ctx.strokeStyle="#FFFF00";
+    ctx.lineWidth=2;
+
+    // Upper box
+    ctx.beginPath();
+    ctx.moveTo(end08.x,end08.y);
+    ctx.lineTo(top08.x,top08.y);
+    ctx.lineTo(top26.x,top26.y);
+    ctx.lineTo(end26.x,end26.y);
+    ctx.stroke();
+
+    // Lower box
+    ctx.beginPath();
+    ctx.moveTo(end08.x,end08.y);
+    ctx.lineTo(bot08.x,bot08.y);
+    ctx.lineTo(bot26.x,bot26.y);
+    ctx.lineTo(end26.x,end26.y);
+    ctx.stroke();
+
+}
 // ======================================
 // Draw CCB VOR
 // ======================================
