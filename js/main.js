@@ -145,127 +145,119 @@ function moveAircraft(){
         // Speed (NM/sec)
         if(ac.type==="ATR72" || ac.type==="DO228"){
 
-            movement = 4.0/60;
+            movement = 4.0 / 60;
 
         }else{
 
-            movement = (ac.distance>30) ? 5.5/60 : 5.0/60;
+            movement = (ac.distance > 30) ? 5.5 / 60 : 5.0 / 60;
 
         }
 
-        // Turn towards assigned heading
+        // =====================================
+        // Heading
+        // =====================================
+
         if(ac.heading !== ac.targetHeading){
 
-    const turnRate = 3;
+            const turnRate = 3;
 
-    if(ac.turnDirection === "LEFT"){
+            if(ac.turnDirection === "LEFT"){
 
-        ac.heading -= turnRate;
+                ac.heading -= turnRate;
 
-        if(ac.heading < 0)
-            ac.heading += 360;
+                if(ac.heading < 0)
+                    ac.heading += 360;
 
-    }
+            }
+            else if(ac.turnDirection === "RIGHT"){
 
-    else if(ac.turnDirection === "RIGHT"){
+                ac.heading += turnRate;
 
-        ac.heading += turnRate;
+                if(ac.heading >= 360)
+                    ac.heading -= 360;
 
-        if(ac.heading >= 360)
-            ac.heading -= 360;
+            }
+            else{
 
-    }
+                let diff = (ac.targetHeading - ac.heading + 360) % 360;
 
-    else{
+                if(diff > 180)
+                    diff -= 360;
 
-        // SHORTEST (current behaviour)
+                if(Math.abs(diff) <= turnRate){
 
-        let diff = (ac.targetHeading - ac.heading + 360) % 360;
+                    ac.heading = ac.targetHeading;
 
-        if(diff > 180)
-            diff -= 360;
+                }else{
 
-        if(Math.abs(diff) <= turnRate){
+                    ac.heading += (diff > 0) ? turnRate : -turnRate;
 
-            ac.heading = ac.targetHeading;
+                    if(ac.heading < 0) ac.heading += 360;
+                    if(ac.heading >= 360) ac.heading -= 360;
 
-        }else{
+                }
 
-            ac.heading += (diff > 0) ? turnRate : -turnRate;
+            }
 
-            if(ac.heading < 0) ac.heading += 360;
-            if(ac.heading >= 360) ac.heading -= 360;
+            let error = (ac.targetHeading - ac.heading + 360) % 360;
+
+            if(error > 180)
+                error -= 360;
+
+            if(Math.abs(error) <= turnRate){
+
+                ac.heading = ac.targetHeading;
+                ac.turnDirection = "SHORTEST";
+
+            }
 
         }
 
-    }
+        // =====================================
+        // Smooth Climb / Descent
+        // =====================================
 
-    // Stop turning when target reached
-let error = (ac.targetHeading - ac.heading + 360) % 360;
+        const climbRate = 0.25;   // FL per second
 
-if(error > 180)
-    error -= 360;
+        if(ac.level < ac.targetLevel){
 
-if(Math.abs(error) <= turnRate){
+            ac.level += climbRate;
+            ac.verticalSpeed = 1500;
 
-    ac.heading = ac.targetHeading;
-    ac.turnDirection = "SHORTEST";
+            if(ac.level >= ac.targetLevel){
 
-}
+                ac.level = ac.targetLevel;
+                ac.verticalSpeed = 0;
 
-// ===============================
-// Smooth Climb / Descent
-// ===============================
+            }
 
-const climbRate = 1;   // 1 FL per second
+        }
+        else if(ac.level > ac.targetLevel){
 
-if(ac.level < ac.targetLevel){
+            ac.level -= climbRate;
+            ac.verticalSpeed = -1500;
 
-    ac.level += climbRate;
-    ac.verticalSpeed = 1500;
+            if(ac.level <= ac.targetLevel){
 
-    if(ac.level >= ac.targetLevel){
-        ac.level = ac.targetLevel;
-        ac.verticalSpeed = 0;
-    }
+                ac.level = ac.targetLevel;
+                ac.verticalSpeed = 0;
 
-}
-else if(ac.level > ac.targetLevel){
+            }
 
-    ac.level -= climbRate;
-    ac.verticalSpeed = -1500;
+        }
+        else{
 
-    if(ac.level <= ac.targetLevel){
-        ac.level = ac.targetLevel;
-        ac.verticalSpeed = 0;
-    }
+            ac.verticalSpeed = 0;
 
-}
-else{
+        }
 
-    ac.verticalSpeed = 0;
+        // =====================================
+        // Move Aircraft
+        // =====================================
 
-}
-
-console.log(
-    ac.callsign,
-    "Current:", ac.heading,
-    "Target:", ac.targetHeading
-);
-
-        
-
-        console.log(
-            ac.callsign,
-            "Current:", ac.heading,
-            "Target:", ac.targetHeading
-        );
-
-        // Convert movement to pixels
         const pixelsPerNM = RADAR_RADIUS / MAX_RANGE;
         const pixels = movement * pixelsPerNM;
 
-        // Move according to heading
         const angle = (ac.heading - 90) * Math.PI / 180;
 
         ac.x += Math.cos(angle) * pixels;
@@ -283,7 +275,6 @@ console.log(
     });
 
 }
-
 //--------------------------------------
 // Start Simulator
 //--------------------------------------
