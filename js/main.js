@@ -36,42 +36,19 @@ function entryOffset(type) {
 }
 document.getElementById("applyBtn").onclick = function(){
 
-    const cs = document.getElementById("callsign").value.toUpperCase().trim();
+    if(selectedAircraft == null){
+        alert("Select an aircraft first.");
+        return;
+    }
 
-    const hdg = parseInt(document.getElementById("heading").value);
-    const lvl = parseInt(document.getElementById("level").value);
+    const hdg = document.getElementById("heading").value;
+    const lvl = document.getElementById("level").value;
 
-    const turnDir =
-        document.querySelector('input[name="turnDir"]:checked').value;
+    if(hdg !== "")
+        selectedAircraft.targetHeading = parseInt(hdg);
 
-    aircraft.forEach(ac=>{
-
-        if(ac.callsign===cs){
-
-            if(!isNaN(hdg)){
-                ac.targetHeading = hdg;
-                ac.turnDirection = turnDir;
-            }
-
-            if(!isNaN(lvl)){
-                ac.targetLevel = lvl;
-                console.log(
-    "Assigned",
-    ac.callsign,
-    "Current:", ac.level,
-    "Target:", ac.targetLevel
-);
-            }
-
-            console.log(
-                ac.callsign,
-                "Current FL:", ac.level,
-                "Assigned FL:", ac.targetLevel
-            );
-
-        }
-
-    });
+    if(lvl !== "")
+        selectedAircraft.targetLevel = parseInt(lvl);
 
 };
 //--------------------------------------
