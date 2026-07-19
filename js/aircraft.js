@@ -16,7 +16,7 @@ targetHeading:10,
 turnDirection:"SHORTEST",
 level:180,
 targetLevel:180,
-
+verticalSpeed: 0,
 speed:280,
 targetSpeed:280,
 
@@ -43,7 +43,7 @@ targetHeading:170,
 turnDirection:"SHORTEST",
 level:190,
 targetLevel:190,
-
+verticalSpeed: 0,
 speed:290,
 targetSpeed:290,
 
@@ -68,7 +68,7 @@ targetHeading:170,
 turnDirection:"SHORTEST",
 level:160,
 targetLevel:160,
-
+verticalSpeed: 0,
 speed:240,
 targetSpeed:240,
 
@@ -93,6 +93,7 @@ targetHeading:300,
 turnDirection:"SHORTEST",
 level:180,
 targetLevel:180,
+  verticalSpeed: 0,
 
 speed:300,
 targetSpeed:300,
@@ -119,7 +120,7 @@ targetHeading:120,
 turnDirection:"SHORTEST",
 level:110,
 targetLevel:110,
-
+verticalSpeed: 0,
 speed:260,
 targetSpeed:260,
 
@@ -144,7 +145,7 @@ targetHeading:250,
 turnDirection:"SHORTEST",
 level:190,
 targetLevel:190,
-
+verticalSpeed: 0,
 speed:290,
 targetSpeed:290,
 
@@ -169,7 +170,7 @@ targetHeading:72,
 turnDirection:"SHORTEST",
 level:180,
 targetLevel:180,
-
+verticalSpeed: 0,
 speed:280,
 targetSpeed:280,
 
@@ -194,7 +195,7 @@ targetHeading:10,
 turnDirection:"SHORTEST",
 level:110,
 targetLevel:110,
-
+verticalSpeed: 0,
 speed:180,
 targetSpeed:180,
 
@@ -219,6 +220,7 @@ targetHeading:268,
 
 level:80,
 targetLevel:80,
+  verticalSpeed: 0,
 turnDirection:"SHORTEST",
 speed:180,
 targetSpeed:180,
