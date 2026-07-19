@@ -421,3 +421,6 @@ canvas.addEventListener("click", function(e){
     console.log(ac.callsign + " selected");
 
 }
+            });
+
+});
