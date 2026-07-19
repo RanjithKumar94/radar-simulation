@@ -10,6 +10,11 @@ const ctx = canvas.getContext("2d");
 // Radar Size
 const RADAR_RADIUS = 380;
 const MAX_RANGE = 60;
+const PIXELS_PER_NM = RADAR_RADIUS / MAX_RANGE;
+
+function nm(value){
+    return value * PIXELS_PER_NM;
+}
 
 // Radar Centre
 const CENTER_X = canvas.width / 2;
@@ -111,6 +116,49 @@ function drawRunway(){
 
     ctx.fillText("08",p1.x-22,p1.y+8);
     ctx.fillText("26",p2.x+8,p2.y+8);
+
+}
+function drawTrafficCircuit(){
+
+    const cx = CENTER_X;
+    const cy = CENTER_Y;
+
+    const left = nm(12);
+    const right = nm(12);
+    const offset = nm(5);
+    const finalLeg = nm(8);
+
+    ctx.strokeStyle="#00FF00";
+    ctx.lineWidth=2;
+
+    // Centreline extension
+    ctx.setLineDash([8,8]);
+
+    ctx.beginPath();
+    ctx.moveTo(cx-nm(15),cy);
+    ctx.lineTo(cx+nm(15),cy);
+    ctx.stroke();
+
+    ctx.setLineDash([]);
+
+    // Circuit
+    ctx.beginPath();
+
+    ctx.moveTo(cx-finalLeg,cy);
+
+    ctx.lineTo(cx-left,cy);
+
+    ctx.lineTo(cx-left,cy-offset);
+
+    ctx.lineTo(cx+right,cy-offset);
+
+    ctx.lineTo(cx+right,cy+offset);
+
+    ctx.lineTo(cx-finalLeg,cy+offset);
+
+    ctx.lineTo(cx-finalLeg,cy);
+
+    ctx.stroke();
 
 }
 
@@ -224,6 +272,7 @@ function drawRadar(){
     drawBackground();
     drawRoutes();
     drawRunway();
+    drawTrafficCircuit();
     drawCCB();
 
     // Draw aircraft
