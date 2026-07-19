@@ -318,23 +318,7 @@ function moveAircraft(){
         // Remove aircraft only after landing
         // =====================================
 
-        if(ac.distance === 0){
-
-            // Continue descending after reaching airport
-            if(ac.level > 0){
-
-                ac.targetLevel = 0;
-
-            }
-
-            if(ac.level <= 0){
-
-                ac.active = false;
-                console.log(ac.callsign + " landed");
-
-            }
-
-        }
+        
 
     });
 
