@@ -120,6 +120,7 @@ function moveAircraft() {
         }
 
         ac.distance -= movement;
+        console.log(ac.callsign, ac.distance);
 
         if (ac.distance <= 0) {
             ac.active = false;
@@ -138,5 +139,7 @@ setInterval(function(){
     updateClock();
 
     spawnAircraft();
+
+    moveAircraft();
 
 },1000);
