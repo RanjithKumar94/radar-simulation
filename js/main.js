@@ -149,7 +149,9 @@ function moveUnknownBlips(){
 
     unknownBlips.forEach(blip => {
 
-        const movement = blip.speed / 3600; // NM per second
+        if(!blip.active) return;
+
+        const movement = blip.speed / 3600;
 
         const pixels = movement * PIXELS_PER_NM;
 
@@ -157,6 +159,17 @@ function moveUnknownBlips(){
 
         blip.x += Math.cos(angle) * pixels;
         blip.y += Math.sin(angle) * pixels;
+
+        const dx = blip.x - CCB.x;
+        const dy = blip.y - CCB.y;
+
+        const distance = Math.sqrt(dx * dx + dy * dy) / PIXELS_PER_NM;
+
+        if(distance > 65){
+
+            blip.active = false;
+
+        }
 
     });
 
