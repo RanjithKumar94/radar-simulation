@@ -223,6 +223,19 @@ function drawRoutes(){
     });
 
 }
+// ======================================
+// TRAFFIC CIRCUIT CONFIGURATION
+// ======================================
+
+const CIRCUIT = {
+
+    centreline:15,
+    final:8,
+    upwind:8,
+    downwind:12,
+    width:5
+
+};
 
   // ======================================
 // PART 3
