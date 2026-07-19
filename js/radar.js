@@ -309,7 +309,10 @@ ctx.stroke();
 ctx.font="14px Consolas";
 ctx.fillStyle="#00FF00";
 
-ctx.fillText(ac.callsign,lx+5,ly-5);
+
+ctx.fillText(ac.callsign, lx+5, ly-5);
+
+// Level display
 let levelText;
 
 const currentFL = Math.round(ac.level);
@@ -331,16 +334,10 @@ else{
 
 }
 
-ctx.fillText(
-    levelText,
-    labelX,
-    labelY + 15
-);
-ctx.fillText(ac.speed+"KT",lx+5,ly+25);
+ctx.fillText(levelText, lx+5, ly+10);
 
-    });
-
-}
+// Speed
+ctx.fillText(ac.speed + "KT", lx+5, ly+25);
 // ======================================
 // Draw Complete Radar
 // ======================================
