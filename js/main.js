@@ -139,29 +139,64 @@ function moveAircraft(){
         // Turn towards assigned heading
         if(ac.heading !== ac.targetHeading){
 
-            let diff = (ac.targetHeading - ac.heading + 360) % 360;
+    const turnRate = 3;
 
-            if(diff > 180){
-                diff -= 360;
-            }
+    if(ac.turnDirection === "LEFT"){
 
-            if(Math.abs(diff) <= 3){
+        ac.heading -= turnRate;
 
-                ac.heading = ac.targetHeading;
+        if(ac.heading < 0)
+            ac.heading += 360;
 
-            }else{
+    }
 
-                ac.heading += (diff > 0) ? 3 : -3;
+    else if(ac.turnDirection === "RIGHT"){
 
-                if(ac.heading < 0){
-                    ac.heading += 360;
-                }
+        ac.heading += turnRate;
 
-                if(ac.heading >= 360){
-                    ac.heading -= 360;
-                }
+        if(ac.heading >= 360)
+            ac.heading -= 360;
 
-            }
+    }
+
+    else{
+
+        // SHORTEST (current behaviour)
+
+        let diff = (ac.targetHeading - ac.heading + 360) % 360;
+
+        if(diff > 180)
+            diff -= 360;
+
+        if(Math.abs(diff) <= turnRate){
+
+            ac.heading = ac.targetHeading;
+
+        }else{
+
+            ac.heading += (diff > 0) ? turnRate : -turnRate;
+
+            if(ac.heading < 0) ac.heading += 360;
+            if(ac.heading >= 360) ac.heading -= 360;
+
+        }
+
+    }
+
+    // Stop turning when target reached
+    let error = (ac.targetHeading - ac.heading + 360) % 360;
+
+    if(error > 180)
+        error -= 360;
+
+    if(Math.abs(error) <= turnRate){
+
+        ac.heading = ac.targetHeading;
+        ac.turnDirection = "SHORTEST";
+
+    }
+
+}
 
         }
 
