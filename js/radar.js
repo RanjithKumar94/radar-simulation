@@ -361,7 +361,7 @@ function drawRadar(){
     drawTrafficCircuit();
     drawCentreline();
     drawCCB();
-
+drawUnknownBlips();
     // Draw aircraft
     drawAircraft();
 
