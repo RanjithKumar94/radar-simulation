@@ -350,6 +350,12 @@ window.onload = function(){
     drawRadar();
 
 };
+
+canvas.addEventListener("click", function(e){
+
+    console.log("Canvas clicked");
+
+});
 // ======================================
 // Label Click Detection
 // ======================================
