@@ -462,7 +462,9 @@ setInterval(function(){
 
     moveAircraft();
 
+    if(typeof moveDepartures === "function"){
     moveDepartures();
+}
 
     moveUnknownBlips();
 
