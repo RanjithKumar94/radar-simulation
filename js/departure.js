@@ -14,8 +14,8 @@ let departures = [];
 document.getElementById("depRwy26").onclick = function(){
 
     alert(
-        "Callsign = " + document.getElementById("callsign").value +
-        "\nLevel = " + document.getElementById("level").value
+        "Callsign = " + document.getElementById("depcallsign").value +
+        "\nLevel = " + document.getElementById("deplevel").value
     );
 
 
@@ -27,28 +27,28 @@ document.getElementById("level").value.trim();
 
 console.log(
     "CALLSIGN BOX:",
-    document.getElementById("callsign"),
+    document.getElementById("depcallsign"),
     "VALUE:",
-    callsignInput
+    depcallsignInput
 );
 
 console.log(
     "LEVEL BOX VALUE:",
-    levelInput
+    deplevelInput
 );
 
 
 console.log(
     "INPUT:",
-    callsignInput,
-    levelInput
+    depcallsignInput,
+    deplevelInput
 );
-    const start = bearingToXY(260,5); // West of CCB
+    const start = bearingToXY(260,1); // West of CCB
 
 
     departures.push({
 
-        callsign: callsignInput || "DEP001",
+        callsign: depcallsignInput || "DEP001",
 
         type:"A320",
 
@@ -68,8 +68,8 @@ console.log(
         level:0,
 
         targetLevel:
-        levelInput !== ""
-        ? Number(levelInput)
+        deplevelInput !== ""
+        ? Number(deplevelInput)
         : 100,
 
 
@@ -85,9 +85,9 @@ console.log(
 
     console.log(
         "Departure created:",
-        callsignInput,
+        depcallsignInput,
         "FL",
-        levelInput
+        deplevelInput
     );
 
 };
@@ -95,20 +95,20 @@ console.log(
 document.getElementById("depRwy08").onclick = function(){
 
     const callsignInput =
-    document.getElementById("callsign").value;
+    document.getElementById("depcallsign").value;
 
 
     const levelInput =
-    document.getElementById("level").value;
+    document.getElementById("deplevel").value;
 
 
-    const start = bearingToXY(80,5); // East of CCB
+    const start = bearingToXY(80,1); // East of CCB
 
 
     departures.push({
 
         callsign:
-        callsignInput || "DEP002",
+        depcallsignInput || "DEP002",
 
         type:"A320",
 
@@ -119,8 +119,8 @@ document.getElementById("depRwy08").onclick = function(){
         labelAngle:0,
 
 
-        heading:260,
-        targetHeading:260,
+        heading:080,
+        targetHeading:080,
 
 
         turnDirection:"SHORTEST",
@@ -129,8 +129,8 @@ document.getElementById("depRwy08").onclick = function(){
         level:0,
 
         targetLevel:
-        levelInput !== ""
-        ? Number(levelInput)
+        deplevelInput !== ""
+        ? Number(deplevelInput)
         : 100,
 
 
@@ -146,9 +146,9 @@ document.getElementById("depRwy08").onclick = function(){
 console.log("CREATED AIRCRAFT:", departures[departures.length-1]);
     console.log(
         "Departure created:",
-        callsignInput,
+        depcallsignInput,
         "FL",
-        levelInput
+        deplevelInput
     );
 
 };
