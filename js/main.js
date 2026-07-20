@@ -130,13 +130,13 @@ function updateClock(){
 //--------------------------------------
 function spawnRWY26Unknown() {
 
-    const start = bearingToXY(50, 60);
+    const start = bearingToXY(30, 60);
 
     unknownBlips.push({
         x: start.x,
         y: start.y,
         heading: 180,
-        speed: 480,
+        speed: 550,
         active: true
     });
 
@@ -231,11 +231,11 @@ function moveAircraft(){
                 break;
 
             case "ATR72":
-                movement = 4.2 / 60;
+                movement = 4 / 60;
                 break;
 
             case "DO228":
-                movement = 4.0 / 60;
+                movement = 3.5 / 60;
                 break;
 
             default:
@@ -247,43 +247,71 @@ function moveAircraft(){
         // ===============================
         // Heading turn
         // ===============================
+// ======================================
+// Heading Turn with Direction Control
+// ======================================
 
-        if(ac.heading !== ac.targetHeading){
+if(ac.heading !== ac.targetHeading){
 
-            let diff =
-            (ac.targetHeading - ac.heading + 360) % 360;
+    const turnRate = 3;
 
-
-            if(diff > 180)
-                diff -= 360;
-
-
-            const turnRate = 3;
+    let diff =
+    (ac.targetHeading - ac.heading + 360) % 360;
 
 
-            if(Math.abs(diff) <= turnRate){
+    if(ac.turnDirection === "LEFT"){
 
-                ac.heading = ac.targetHeading;
+        ac.heading -= turnRate;
 
-            }
-            else{
+        if(ac.heading < 0)
+            ac.heading += 360;
 
-                ac.heading += diff > 0
-                ? turnRate
-                : -turnRate;
+    }
 
 
-                if(ac.heading < 0)
-                    ac.heading += 360;
+    else if(ac.turnDirection === "RIGHT"){
+
+        ac.heading += turnRate;
+
+        if(ac.heading >= 360)
+            ac.heading -= 360;
+
+    }
 
 
-                if(ac.heading >= 360)
-                    ac.heading -= 360;
+    else{
 
-            }
+        // SHORTEST TURN
+
+        if(diff > 180)
+            diff -= 360;
+
+
+        if(Math.abs(diff) <= turnRate){
+
+            ac.heading = ac.targetHeading;
+
+        }
+        else{
+
+            ac.heading += diff > 0
+            ? turnRate
+            : -turnRate;
 
         }
 
+
+        if(ac.heading < 0)
+            ac.heading += 360;
+
+
+        if(ac.heading >= 360)
+            ac.heading -= 360;
+
+    }
+
+
+}
 
 
         // ===============================
