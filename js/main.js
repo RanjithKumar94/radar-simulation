@@ -233,106 +233,89 @@ function moveAircraft(){
 
         if(!ac.active) return;
 
-       let movement;
-
-// =====================================
-// Aircraft Speed (NM per minute)
-// =====================================
-
-switch(ac.type){
-
-    case "B777":
-        movement = 5.5 / 60;
-        break;
-
-    case "B737":
-    case "A320":
-        movement = 5.0 / 60;
-        break;
-
-    case "ATR72":
-        movement = 4.2 / 60;
-        break;
-
-    case "DO228":
-        movement = 4.0 / 60;
-        break;
-
-    default:
-        movement = 5.0 / 60;
-
-}
 
         // =====================================
-        // Heading
+        // Aircraft Speed (NM per second)
+        // =====================================
+
+        let movement;
+
+        switch(ac.type){
+
+            case "B777":
+                movement = 5.5 / 60;
+                break;
+
+            case "B737":
+            case "A320":
+                movement = 5.0 / 60;
+                break;
+
+            case "ATR72":
+                movement = 4.2 / 60;
+                break;
+
+            case "DO228":
+                movement = 4.0 / 60;
+                break;
+
+            default:
+                movement = 5.0 / 60;
+
+        }
+
+
+
+        // =====================================
+        // Heading Control
         // =====================================
 
         if(ac.heading !== ac.targetHeading){
 
             const turnRate = 3;
 
-            if(ac.turnDirection === "LEFT"){
+            let diff = (ac.targetHeading - ac.heading + 360) % 360;
 
-                ac.heading -= turnRate;
+            if(diff > 180)
+                diff -= 360;
+
+
+            if(Math.abs(diff) <= turnRate){
+
+                ac.heading = ac.targetHeading;
+
+            }
+            else{
+
+                ac.heading += (diff > 0)
+                ? turnRate
+                : -turnRate;
+
 
                 if(ac.heading < 0)
                     ac.heading += 360;
-
-            }
-            else if(ac.turnDirection === "RIGHT"){
-
-                ac.heading += turnRate;
 
                 if(ac.heading >= 360)
                     ac.heading -= 360;
 
             }
-            else{
-
-                let diff = (ac.targetHeading - ac.heading + 360) % 360;
-
-                if(diff > 180)
-                    diff -= 360;
-
-                if(Math.abs(diff) <= turnRate){
-
-                    ac.heading = ac.targetHeading;
-
-                }else{
-
-                    ac.heading += (diff > 0) ? turnRate : -turnRate;
-
-                    if(ac.heading < 0) ac.heading += 360;
-                    if(ac.heading >= 360) ac.heading -= 360;
-
-                }
-
-            }
-
-            let error = (ac.targetHeading - ac.heading + 360) % 360;
-
-            if(error > 180)
-                error -= 360;
-
-            if(Math.abs(error) <= turnRate){
-
-                ac.heading = ac.targetHeading;
-                ac.turnDirection = "SHORTEST";
-
-            }
 
         }
 
+
+
         // =====================================
-        // Smooth Climb / Descent
+        // Normal Climb
         // =====================================
 
-        const climbRate = 0.25;   // FL per second
+        const climbRate = 0.25; // FL/sec
+
 
         if(ac.level < ac.targetLevel){
 
             ac.level += climbRate;
             ac.verticalSpeed = 1500;
+
 
             if(ac.level >= ac.targetLevel){
 
@@ -342,76 +325,108 @@ switch(ac.type){
             }
 
         }
-        else if(ac.level > ac.targetLevel){
 
-            ac.level -= climbRate;
-            ac.verticalSpeed = -1500;
 
-            if(ac.level <= ac.targetLevel){
 
-                ac.level = ac.targetLevel;
-                ac.verticalSpeed = 0;
+        // =====================================
+        // Arrival Descent Trigger
+        // =====================================
+
+        if(ac.distance <= 8.5){
+
+            ac.arrivalPhase = true;
+
+        }
+
+
+
+        // =====================================
+        // Controller commanded FL0 descent
+        // =====================================
+
+        if(ac.arrivalPhase && ac.targetLevel === 0){
+
+
+            if(ac.level > 0){
+
+                ac.level -= 0.5;   // approx 3000 ft/min
+
+                ac.verticalSpeed = -3000;
+
+
+                if(ac.level <= 0){
+
+                    ac.level = 0;
+                    ac.verticalSpeed = 0;
+
+                }
 
             }
 
         }
-        else{
 
-            ac.verticalSpeed = 0;
 
-        }
 
         // =====================================
         // Move Aircraft
         // =====================================
 
         const pixelsPerNM = RADAR_RADIUS / MAX_RANGE;
+
         const pixels = movement * pixelsPerNM;
 
-        const angle = (ac.heading - 90) * Math.PI / 180;
+
+        const angle =
+        (ac.heading - 90) * Math.PI / 180;
+
 
         ac.x += Math.cos(angle) * pixels;
+
         ac.y += Math.sin(angle) * pixels;
+
 
         ac.distance -= movement;
 
-        // =====================================
-// Landing at CCB
-// =====================================
-
-if(ac.distance <= 0.1){
-
-    ac.distance = 0;
-
-    if(ac.level <= 0){
-
-        ac.landed = true;
-
-    }
-
-}
 
 
-// Remove after 3 seconds
-if(ac.landed){
+        if(ac.distance < 0)
+            ac.distance = 0;
 
-    ac.removeTimer++;
 
-    if(ac.removeTimer >= 3){
-
-        ac.active = false;
-
-        console.log(ac.callsign + " removed after landing");
-
-    }
-
-}
 
         // =====================================
-        // Remove aircraft only after landing
+        // Landing at CCB
         // =====================================
 
-        
+        if(ac.distance <= 0.1 && ac.level <= 0){
+
+            ac.landed = true;
+
+        }
+
+
+
+        // =====================================
+        // Remove after 3 seconds
+        // =====================================
+
+        if(ac.landed){
+
+            ac.removeTimer = (ac.removeTimer || 0) + 1;
+
+
+            if(ac.removeTimer >= 3){
+
+                ac.active = false;
+
+                console.log(
+                    ac.callsign + " removed after landing"
+                );
+
+            }
+
+        }
+
 
     });
 
