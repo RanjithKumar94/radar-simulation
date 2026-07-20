@@ -90,6 +90,11 @@ document.getElementById("applyBtn").onclick = function(){
 
     if(lvl !== "")
         selectedAircraft.targetLevel = parseInt(lvl);
+    const turn =
+document.querySelector('input[name="turnDir"]:checked').value;
+
+
+selectedAircraft.turnDirection = turn;
 console.log(
     "COMMAND GIVEN:",
     selectedAircraft.callsign,
