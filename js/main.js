@@ -2,6 +2,26 @@
 // main.js
 // ATC Simulator Engine
 // ======================================
+
+let simulatorPaused = false;
+
+
+document.getElementById("pauseBtn").onclick = function(){
+
+    simulatorPaused = true;
+
+    console.log("Simulator Paused");
+
+};
+
+
+document.getElementById("resumeBtn").onclick = function(){
+
+    simulatorPaused = false;
+
+    console.log("Simulator Resumed");
+
+};
 let selectedAircraft = null;
 let unknownBlips = [];
 document.getElementById("rwy26Blip").onclick = function(){
@@ -340,12 +360,14 @@ switch(ac.type){
 
 setInterval(function(){
 
+    if(simulatorPaused) return;
+
     updateClock();
 
     spawnAircraft();
 
     moveAircraft();
-    moveUnknownBlips();
 
+    moveUnknownBlips();
 
 },1000);
