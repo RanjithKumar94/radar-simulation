@@ -2,115 +2,61 @@
 // departure.js
 // ATC Simulator Departure Engine
 // ======================================
+
 console.log("departure.js loaded");
+
 
 let departures = [];
 
 
 // ======================================
-// Spawn RWY 26 Departure Button
+// Create Departure
 // ======================================
 
-document.getElementById("depRwy26").onclick = function(){
+function createDeparture(runway){
 
-    alert(
-        "Callsign = " + document.getElementById("depcallsign").value +
-        "\nLevel = " + document.getElementById("deplevel").value
-    );
+    const depCallsign =
+    document.getElementById("depcallsign").value.trim();
 
 
+    const depLevel =
+    document.getElementById("deplevel").value.trim();
 
 
-const levelInput =
-document.getElementById("level").value.trim();
+
+    let start;
+    let heading;
 
 
-console.log(
-    "CALLSIGN BOX:",
-    document.getElementById("depcallsign"),
-    "VALUE:",
-    depcallsignInput
-);
+    if(runway === "26"){
 
-console.log(
-    "LEVEL BOX VALUE:",
-    deplevelInput
-);
+        // West of CCB
+        start = bearingToXY(260,1);
 
+        // RWY 26 departure towards east
+        heading = 80;
 
-console.log(
-    "INPUT:",
-    depcallsignInput,
-    deplevelInput
-);
-    const start = bearingToXY(260,1); // West of CCB
+    }
+    else{
 
+        // East of CCB
+        start = bearingToXY(80,1);
 
-    departures.push({
+        // RWY 08 departure towards west
+        heading = 260;
 
-        callsign: callsignInput || "DEP001",
+    }
 
-        type:"A320",
-
-        x:start.x,
-        y:start.y,
-
-
-        labelAngle:0,
-
-
-        heading:260,
-        targetHeading:260,
-
-        turnDirection:"SHORTEST",
-
-
-        level:0,
-
-        targetLevel:
-        deplevelInput !== ""
-        ? Number(deplevelInput)
-        : 100,
-
-
-        verticalSpeed:0,
-
-        speed:250,
-
-
-        active:true
-
-    });
-
-
-    console.log(
-        "Departure created:",
-        callsignInput,
-        "FL",
-        levelInput
-    );
-
-};
-
-document.getElementById("depRwy08").onclick = function(){
-
-    const callsignInput =
-    document.getElementById("depcallsign").value;
-
-
-    const levelInput =
-    document.getElementById("deplevel").value;
-
-
-    const start = bearingToXY(80,1); // East of CCB
 
 
     departures.push({
 
         callsign:
-        callsignInput || "DEP002",
+        depCallsign || "DEP001",
+
 
         type:"A320",
+
 
         x:start.x,
         y:start.y,
@@ -119,8 +65,9 @@ document.getElementById("depRwy08").onclick = function(){
         labelAngle:0,
 
 
-        heading:080,
-        targetHeading:080,
+        heading:heading,
+
+        targetHeading:heading,
 
 
         turnDirection:"SHORTEST",
@@ -129,12 +76,13 @@ document.getElementById("depRwy08").onclick = function(){
         level:0,
 
         targetLevel:
-        deplevelInput !== ""
-        ? Number(deplevelInput)
+        depLevel !== ""
+        ? Number(depLevel)
         : 100,
 
 
         verticalSpeed:0,
+
 
         speed:250,
 
@@ -143,15 +91,36 @@ document.getElementById("depRwy08").onclick = function(){
 
     });
 
-console.log("CREATED AIRCRAFT:", departures[departures.length-1]);
+
+
     console.log(
         "Departure created:",
-        depcallsignInput,
+        depCallsign,
         "FL",
-        deplevelInput
+        depLevel
     );
 
+}
+
+
+
+// ======================================
+// Buttons
+// ======================================
+
+document.getElementById("depRwy26").onclick = function(){
+
+    createDeparture("26");
+
 };
+
+
+document.getElementById("depRwy08").onclick = function(){
+
+    createDeparture("08");
+
+};
+
 
 
 
@@ -165,11 +134,12 @@ function moveDepartures(){
     departures.forEach(ac=>{
 
 
-        if(!ac.active) return;
+        if(!ac.active)
+            return;
 
 
 
-        // Speed 5 NM/min
+        // 5 NM per minute
 
         const movement = 5 / 60;
 
@@ -216,4 +186,3 @@ function moveDepartures(){
     });
 
 }
-console.log(typeof moveDepartures);
