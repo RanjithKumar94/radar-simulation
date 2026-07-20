@@ -166,29 +166,58 @@ ac.targetHeading
 // Heading Turn
 // ======================================
 
+// ======================================
+// Heading Turn with Direction Control
+// ======================================
+
 if(ac.heading !== ac.targetHeading){
+
+    const turnRate = 3;
 
     let diff =
     (ac.targetHeading - ac.heading + 360) % 360;
 
 
-    if(diff > 180)
-        diff -= 360;
+    if(ac.turnDirection === "LEFT"){
 
+        ac.heading -= turnRate;
 
-    const turnRate = 3;
-
-
-    if(Math.abs(diff) <= turnRate){
-
-        ac.heading = ac.targetHeading;
+        if(ac.heading < 0)
+            ac.heading += 360;
 
     }
+
+
+    else if(ac.turnDirection === "RIGHT"){
+
+        ac.heading += turnRate;
+
+        if(ac.heading >= 360)
+            ac.heading -= 360;
+
+    }
+
+
     else{
 
-        ac.heading += diff > 0
-        ? turnRate
-        : -turnRate;
+        // SHORTEST TURN
+
+        if(diff > 180)
+            diff -= 360;
+
+
+        if(Math.abs(diff) <= turnRate){
+
+            ac.heading = ac.targetHeading;
+
+        }
+        else{
+
+            ac.heading += diff > 0
+            ? turnRate
+            : -turnRate;
+
+        }
 
 
         if(ac.heading < 0)
@@ -199,6 +228,7 @@ if(ac.heading !== ac.targetHeading){
             ac.heading -= 360;
 
     }
+
 
 }
 
