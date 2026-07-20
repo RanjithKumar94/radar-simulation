@@ -108,16 +108,23 @@ function createDeparture(runway){
 // Buttons
 // ======================================
 
-document.getElementById("depRwy26").onclick = function(){
-
-    createDeparture("26");
-
-};
+document.getElementById("createDeparture").onclick = function(){
 
 
-document.getElementById("depRwy08").onclick = function(){
+    const runway =
+    document.getElementById("depRunway").value;
 
-    createDeparture("08");
+
+    createDeparture(runway);
+
+
+
+    // Clear input after creating departure
+
+    document.getElementById("depcallsign").value = "";
+
+    document.getElementById("deplevel").value = "";
+
 
 };
 
