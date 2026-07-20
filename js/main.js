@@ -323,26 +323,7 @@ switch(ac.type){
 
         ac.distance -= movement;
 
-               // =====================================
-        // Move Aircraft
-        // =====================================
-
-        if(ac.distance > 0){
-
-            const pixelsPerNM = RADAR_RADIUS / MAX_RANGE;
-            const pixels = movement * pixelsPerNM;
-
-            const angle = (ac.heading - 90) * Math.PI / 180;
-
-            ac.x += Math.cos(angle) * pixels;
-            ac.y += Math.sin(angle) * pixels;
-
-            ac.distance -= movement;
-
-            if(ac.distance < 0)
-                ac.distance = 0;
-
-        }
+        
 
         // =====================================
         // Remove aircraft only after landing
