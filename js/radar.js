@@ -387,6 +387,9 @@ canvas.addEventListener("click", function(e){
 // ======================================
 // Label Click Detection
 // ======================================
+// ======================================
+// Aircraft Selection + Label Rotation
+// ======================================
 
 canvas.addEventListener("click", function(e){
 
@@ -395,7 +398,7 @@ canvas.addEventListener("click", function(e){
     const mx = e.clientX - rect.left;
     const my = e.clientY - rect.top;
 
-    aircraft.forEach(ac=>{
+    aircraft.forEach(ac => {
 
         if(!ac.active) return;
 
@@ -409,12 +412,15 @@ canvas.addEventListener("click", function(e){
         if(
             mx >= lx &&
             mx <= lx + 100 &&
-            my >= ly - 15 &&
+            my >= ly - 20 &&
             my <= ly + 35
         ){
 
             // Select aircraft
             selectedAircraft = ac;
+
+            // Rotate label 45°
+            ac.labelAngle = (ac.labelAngle + 45) % 360;
 
             // Fill control panel
             document.getElementById("callsign").value = ac.callsign;
@@ -431,7 +437,6 @@ canvas.addEventListener("click", function(e){
             }
 
             console.log(ac.callsign + " selected");
-
         }
 
     });
