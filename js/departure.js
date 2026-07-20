@@ -170,12 +170,6 @@ ac.targetHeading
 // Heading Turn with Direction Control
 // ======================================
 
-if(ac.heading !== ac.targetHeading){
-
-    const turnRate = 3;
-
-    let diff =
-    (ac.targetHeading - ac.heading + 360) % 360;
 
 
     if(ac.turnDirection === "LEFT"){
