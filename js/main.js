@@ -160,7 +160,40 @@ function spawnAircraft(){
     });
 
 }
+// =====================================
+// Arrival Descent Logic
+// =====================================
 
+// Start arrival phase at 8.5 NM
+if(ac.distance <= 8.5){
+
+    ac.arrivalPhase = true;
+
+}
+
+
+// Descend only when controller assigns 0
+if(ac.arrivalPhase && ac.targetLevel === 0){
+
+    const descentRate = 0.5; // FL per second
+
+    if(ac.level > 0){
+
+        ac.level -= descentRate;
+
+        ac.verticalSpeed = -3000;
+
+
+        if(ac.level <= 0){
+
+            ac.level = 0;
+            ac.verticalSpeed = 0;
+
+        }
+
+    }
+
+}
 //--------------------------------------
 // Move Aircraft
 //--------------------------------------
@@ -342,7 +375,37 @@ switch(ac.type){
 
         ac.distance -= movement;
 
-        
+        // =====================================
+// Landing at CCB
+// =====================================
+
+if(ac.distance <= 0){
+
+    ac.distance = 0;
+
+    if(ac.level <= 0){
+
+        ac.landed = true;
+
+    }
+
+}
+
+
+// Remove after 3 seconds
+if(ac.landed){
+
+    ac.removeTimer++;
+
+    if(ac.removeTimer >= 3){
+
+        ac.active = false;
+
+        console.log(ac.callsign + " removed after landing");
+
+    }
+
+}
 
         // =====================================
         // Remove aircraft only after landing
