@@ -2,7 +2,7 @@
 // main.js
 // ATC Simulator Engine
 // ======================================
-
+console.log("moveAircraft loaded");
 let simulatorPaused = false;
 
 
