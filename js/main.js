@@ -204,9 +204,9 @@ function moveAircraft(){
         if(!ac.active) return;
 
 
-        // =====================================
-        // Aircraft Speed (NM per second)
-        // =====================================
+        // ===============================
+        // Speed (NM per second)
+        // ===============================
 
         let movement;
 
@@ -235,19 +235,21 @@ function moveAircraft(){
         }
 
 
-
-        // =====================================
-        // Heading Control
-        // =====================================
+        // ===============================
+        // Heading turn
+        // ===============================
 
         if(ac.heading !== ac.targetHeading){
 
-            const turnRate = 3;
+            let diff =
+            (ac.targetHeading - ac.heading + 360) % 360;
 
-            let diff = (ac.targetHeading - ac.heading + 360) % 360;
 
             if(diff > 180)
                 diff -= 360;
+
+
+            const turnRate = 3;
 
 
             if(Math.abs(diff) <= turnRate){
@@ -257,13 +259,14 @@ function moveAircraft(){
             }
             else{
 
-                ac.heading += (diff > 0)
+                ac.heading += diff > 0
                 ? turnRate
                 : -turnRate;
 
 
                 if(ac.heading < 0)
                     ac.heading += 360;
+
 
                 if(ac.heading >= 360)
                     ac.heading -= 360;
@@ -274,33 +277,9 @@ function moveAircraft(){
 
 
 
-        // =====================================
-        // Normal Climb
-        // =====================================
-
-        const climbRate = 0.25; // FL/sec
-
-
-        if(ac.level < ac.targetLevel){
-
-            ac.level += climbRate;
-            ac.verticalSpeed = 1500;
-
-
-            if(ac.level >= ac.targetLevel){
-
-                ac.level = ac.targetLevel;
-                ac.verticalSpeed = 0;
-
-            }
-
-        }
-
-
-
-        // =====================================
-        // Arrival Descent Trigger
-        // =====================================
+        // ===============================
+        // Arrival phase at 8.5 NM
+        // ===============================
 
         if(ac.distance <= 8.5){
 
@@ -310,16 +289,15 @@ function moveAircraft(){
 
 
 
-        // =====================================
-        // Controller commanded FL0 descent
-        // =====================================
+        // ===============================
+        // Descent after controller gives 0
+        // ===============================
 
         if(ac.arrivalPhase && ac.targetLevel === 0){
 
-
             if(ac.level > 0){
 
-                ac.level -= 0.5;   // approx 3000 ft/min
+                ac.level -= 0.5;
 
                 ac.verticalSpeed = -3000;
 
@@ -337,13 +315,12 @@ function moveAircraft(){
 
 
 
-        // =====================================
-        // Move Aircraft
-        // =====================================
+        // ===============================
+        // Move aircraft
+        // ===============================
 
-        const pixelsPerNM = RADAR_RADIUS / MAX_RANGE;
-
-        const pixels = movement * pixelsPerNM;
+        const pixels =
+        movement * PIXELS_PER_NM;
 
 
         const angle =
@@ -351,12 +328,10 @@ function moveAircraft(){
 
 
         ac.x += Math.cos(angle) * pixels;
-
         ac.y += Math.sin(angle) * pixels;
 
 
         ac.distance -= movement;
-
 
 
         if(ac.distance < 0)
@@ -364,9 +339,9 @@ function moveAircraft(){
 
 
 
-        // =====================================
-        // Landing at CCB
-        // =====================================
+        // ===============================
+        // Landing
+        // ===============================
 
         if(ac.distance <= 0.1 && ac.level <= 0){
 
@@ -376,13 +351,14 @@ function moveAircraft(){
 
 
 
-        // =====================================
+        // ===============================
         // Remove after 3 seconds
-        // =====================================
+        // ===============================
 
         if(ac.landed){
 
-            ac.removeTimer = (ac.removeTimer || 0) + 1;
+            ac.removeTimer =
+            (ac.removeTimer || 0) + 1;
 
 
             if(ac.removeTimer >= 3){
@@ -390,7 +366,7 @@ function moveAircraft(){
                 ac.active = false;
 
                 console.log(
-                    ac.callsign + " removed after landing"
+                    ac.callsign + " removed"
                 );
 
             }
