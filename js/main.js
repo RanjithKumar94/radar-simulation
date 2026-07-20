@@ -37,7 +37,7 @@ document.getElementById("rwy26Blip").onclick = function(){
         y: start.y,
 
         heading: 180,      // South
-        speed: 480,
+        speed: 550,
 
         active: true
 
