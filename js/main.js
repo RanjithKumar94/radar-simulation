@@ -462,6 +462,8 @@ setInterval(function(){
 
     moveAircraft();
 
+    moveDepartures();
+
     moveUnknownBlips();
 
 },1000);
