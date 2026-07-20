@@ -13,11 +13,21 @@ let departures = [];
 
 document.getElementById("depRwy26").onclick = function(){
 
-    const start = bearingToXY(80,5);
+    const callsignInput =
+    document.getElementById("callsign").value;
+
+
+    const levelInput =
+    document.getElementById("level").value;
+
+
+
+    const start = bearingToXY(260,5); // West of CCB
+
 
     departures.push({
 
-        callsign:"DEP001",
+        callsign: callsignInput || "DEP001",
 
         type:"A320",
 
@@ -25,15 +35,26 @@ document.getElementById("depRwy26").onclick = function(){
         y:start.y,
 
 
-        heading:260,
-        targetHeading:260,
+        labelAngle:0,
+
+
+        heading:80,
+        targetHeading:80,
+
+        turnDirection:"SHORTEST",
 
 
         level:0,
-        targetLevel:100,
+
+        targetLevel:
+        levelInput !== ""
+        ? Number(levelInput)
+        : 100,
 
 
         verticalSpeed:0,
+
+        speed:250,
 
 
         active:true
@@ -41,7 +62,73 @@ document.getElementById("depRwy26").onclick = function(){
     });
 
 
-    console.log("DEP001 airborne");
+    console.log(
+        "Departure created:",
+        callsignInput,
+        "FL",
+        levelInput
+    );
+
+};
+
+document.getElementById("depRwy08").onclick = function(){
+
+    const callsignInput =
+    document.getElementById("callsign").value;
+
+
+    const levelInput =
+    document.getElementById("level").value;
+
+
+    const start = bearingToXY(80,5); // East of CCB
+
+
+    departures.push({
+
+        callsign:
+        callsignInput || "DEP002",
+
+        type:"A320",
+
+        x:start.x,
+        y:start.y,
+
+
+        labelAngle:0,
+
+
+        heading:260,
+        targetHeading:260,
+
+
+        turnDirection:"SHORTEST",
+
+
+        level:0,
+
+        targetLevel:
+        levelInput !== ""
+        ? Number(levelInput)
+        : 100,
+
+
+        verticalSpeed:0,
+
+        speed:250,
+
+
+        active:true
+
+    });
+
+
+    console.log(
+        "Departure created:",
+        callsignInput,
+        "FL",
+        levelInput
+    );
 
 };
 
