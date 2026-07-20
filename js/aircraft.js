@@ -21,7 +21,9 @@ speed:140,
 targetSpeed:140,
 
 ccbETA:"03:13",
-
+arrivalPhase:false,
+removeTimer:0,
+landed:false
 active:false,
 spawned:false
 },
@@ -48,7 +50,9 @@ speed:145,
 targetSpeed:145,
 
 ccbETA:"03:16",
-
+arrivalPhase:false,
+removeTimer:0,
+landed:false
 active:false,
 spawned:false
 },
@@ -67,13 +71,15 @@ heading:170,
 targetHeading:170,
 turnDirection:"SHORTEST",
 level:160,
-targetLevel:160,
+targetLevel:110,
 verticalSpeed: 0,
 speed:120,
 targetSpeed:120,
 
 ccbETA:"03:19",
-
+arrivalPhase:false,
+removeTimer:0,
+landed:false
 active:false,
 spawned:false
 },
@@ -99,7 +105,9 @@ speed:145,
 targetSpeed:145,
 
 ccbETA:"03:21",
-
+arrivalPhase:false,
+removeTimer:0,
+landed:false
 active:false,
 spawned:false
 },
@@ -125,7 +133,9 @@ speed:130,
 targetSpeed:130,
 
 ccbETA:"03:27",
-
+arrivalPhase:false,
+removeTimer:0,
+landed:false
 active:false,
 spawned:false
 },
@@ -150,7 +160,9 @@ speed:145,
 targetSpeed:145,
 
 ccbETA:"03:28",
-
+arrivalPhase:false,
+removeTimer:0,
+landed:false
 active:false,
 spawned:false
 },
@@ -175,7 +187,9 @@ speed:140,
 targetSpeed:140,
 
 ccbETA:"03:32",
-
+arrivalPhase:false,
+removeTimer:0,
+landed:false
 active:false,
 spawned:false
 },
@@ -200,7 +214,9 @@ speed:90,
 targetSpeed:90,
 
 ccbETA:"03:34",
-
+arrivalPhase:false,
+removeTimer:0,
+landed:false
 active:false,
 spawned:false
 },
@@ -226,7 +242,9 @@ speed:90,
 targetSpeed:90,
 
 ccbETA:"03:36",
-
+arrivalPhase:false,
+removeTimer:0,
+landed:false
 active:false,
 spawned:false
 }
