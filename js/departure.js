@@ -158,7 +158,45 @@ function moveDepartures(){
         if(!ac.active)
             return;
 
+// ======================================
+// Heading Turn
+// ======================================
 
+if(ac.heading !== ac.targetHeading){
+
+    let diff =
+    (ac.targetHeading - ac.heading + 360) % 360;
+
+
+    if(diff > 180)
+        diff -= 360;
+
+
+    const turnRate = 3;
+
+
+    if(Math.abs(diff) <= turnRate){
+
+        ac.heading = ac.targetHeading;
+
+    }
+    else{
+
+        ac.heading += diff > 0
+        ? turnRate
+        : -turnRate;
+
+
+        if(ac.heading < 0)
+            ac.heading += 360;
+
+
+        if(ac.heading >= 360)
+            ac.heading -= 360;
+
+    }
+
+}
 
         // 5 NM per minute
 
