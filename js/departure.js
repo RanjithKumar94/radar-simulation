@@ -33,8 +33,8 @@ function createDeparture(runway){
         // West of CCB
         start = bearingToXY(260,1);
 
-        // RWY 26 departure towards east
-        heading = 80;
+        // RWY 26 departure towards west
+        heading = 260;
 
     }
     else{
@@ -42,8 +42,8 @@ function createDeparture(runway){
         // East of CCB
         start = bearingToXY(80,1);
 
-        // RWY 08 departure towards west
-        heading = 260;
+        // RWY 08 departure towards east
+        heading = 80;
 
     }
 
