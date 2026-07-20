@@ -48,7 +48,7 @@ console.log(
 
     departures.push({
 
-        callsign: depcallsignInput || "DEP001",
+        callsign: callsignInput || "DEP001",
 
         type:"A320",
 
@@ -85,9 +85,9 @@ console.log(
 
     console.log(
         "Departure created:",
-        depcallsignInput,
+        callsignInput,
         "FL",
-        deplevelInput
+        levelInput
     );
 
 };
@@ -108,7 +108,7 @@ document.getElementById("depRwy08").onclick = function(){
     departures.push({
 
         callsign:
-        depcallsignInput || "DEP002",
+        callsignInput || "DEP002",
 
         type:"A320",
 
