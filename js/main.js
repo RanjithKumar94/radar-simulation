@@ -181,18 +181,35 @@ function moveAircraft(){
 
         if(!ac.active) return;
 
-        let movement;
+       let movement;
 
-        // Speed (NM/sec)
-        if(ac.type==="ATR72" || ac.type==="DO228"){
+// =====================================
+// Aircraft Speed (NM per minute)
+// =====================================
 
-            movement = 4.0 / 60;
+switch(ac.type){
 
-        }else{
+    case "B777":
+        movement = 5.5 / 60;
+        break;
 
-            movement = (ac.distance > 30) ? 5.5 / 60 : 5.0 / 60;
+    case "B737":
+    case "A320":
+        movement = 5.0 / 60;
+        break;
 
-        }
+    case "ATR72":
+        movement = 4.2 / 60;
+        break;
+
+    case "DO228":
+        movement = 4.0 / 60;
+        break;
+
+    default:
+        movement = 5.0 / 60;
+
+}
 
         // =====================================
         // Heading
