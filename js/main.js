@@ -5,20 +5,24 @@
 let simulatorPaused = false;
 
 
-document.getElementById("pauseBtn").onclick = function(){
+const pauseBtn = document.getElementById("pauseBtn");
+const resumeBtn = document.getElementById("resumeBtn");
+
+
+pauseBtn.onclick = function(){
 
     simulatorPaused = true;
 
-    console.log("Simulator Paused");
+    console.log("PAUSED =", simulatorPaused);
 
 };
 
 
-document.getElementById("resumeBtn").onclick = function(){
+resumeBtn.onclick = function(){
 
     simulatorPaused = false;
 
-    console.log("Simulator Resumed");
+    console.log("RESUMED =", simulatorPaused);
 
 };
 let selectedAircraft = null;
@@ -385,7 +389,9 @@ function moveAircraft(){
 
 setInterval(function(){
 
-    if(simulatorPaused){
+    console.log("Timer:", simulatorPaused);
+
+    if(simulatorPaused === true){
         return;
     }
 
