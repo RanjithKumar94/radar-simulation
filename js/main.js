@@ -283,42 +283,65 @@ function moveAircraft(){
 
 
         // ===============================
-        // Arrival phase at 8.5 NM
-        // ===============================
+// Arrival phase at 8.5 NM
+// ===============================
 
-        if(ac.distance <= 8.5){
+if(ac.distance <= 8.5){
 
-            ac.arrivalPhase = true;
+    ac.arrivalPhase = true;
 
-        }
-
-
-
-        // ===============================
-        // Descent after controller gives 0
-        // ===============================
-
-        if(ac.arrivalPhase && ac.targetLevel === 0){
-
-            if(ac.level > 0){
-
-                ac.level -= 0.5;
-
-                ac.verticalSpeed = -3000;
+}
 
 
-                if(ac.level <= 0){
+// ===============================
+// Controller selected descent
+// ===============================
 
-                    ac.level = 0;
-                    ac.verticalSpeed = 0;
+if(ac.level > ac.targetLevel){
 
-                }
+    const descentRate = 0.25;   // FL/sec (~1500 ft/min)
 
-            }
+    ac.level -= descentRate;
 
-        }
+    ac.verticalSpeed = -1500;
 
 
+    if(ac.level <= ac.targetLevel){
+
+        ac.level = ac.targetLevel;
+
+        ac.verticalSpeed = 0;
+
+    }
+
+}
+
+
+else if(ac.level < ac.targetLevel){
+
+    const climbRate = 0.25;
+
+    ac.level += climbRate;
+
+    ac.verticalSpeed = 1500;
+
+
+    if(ac.level >= ac.targetLevel){
+
+        ac.level = ac.targetLevel;
+
+        ac.verticalSpeed = 0;
+
+    }
+
+}
+
+
+else{
+
+    ac.verticalSpeed = 0;
+
+}
 
         // ===============================
         // Move aircraft
