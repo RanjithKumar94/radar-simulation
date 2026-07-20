@@ -16,6 +16,7 @@ document.getElementById("pauseBtn").onclick = function(){
 
 document.getElementById("resumeBtn").onclick = function(){
 
+    simulatorPaused = false;
 
     console.log("Simulator Resumed");
 
