@@ -151,17 +151,17 @@ document.getElementById("createDeparture").onclick = function(){
 
 function moveDepartures(){
 
-console.log(
-ac.callsign,
-ac.heading,
-ac.targetHeading
-);
+
     departures.forEach(ac=>{
 
 
         if(!ac.active)
             return;
-
+console.log(
+ac.callsign,
+ac.heading,
+ac.targetHeading
+);
 // ======================================
 // Heading Turn
 // ======================================
