@@ -342,7 +342,7 @@ function drawAircraft(){
         }
 
         ctx.fillText(levelText, lx + 5, ly + 10);
-        ctx.fillText(ac.speed + "KT", lx + 5, ly + 25);
+        
 
     });
 
