@@ -379,7 +379,7 @@ switch(ac.type){
 // Landing at CCB
 // =====================================
 
-if(ac.distance <= 0){
+if(ac.distance <= 0.1){
 
     ac.distance = 0;
 
