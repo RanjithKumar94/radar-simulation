@@ -343,6 +343,44 @@ else{
 
 }
 
+        // =====================================
+// Final Approach Descent
+// =====================================
+
+if(ac.distance <= 8.5 && ac.targetLevel === 0){
+
+    ac.approach = true;
+
+}
+
+
+if(ac.approach){
+
+    // Descend based on distance remaining
+
+    let requiredLevel = ac.distance * 2.35;
+
+    if(requiredLevel < 0)
+        requiredLevel = 0;
+
+
+    if(ac.level > requiredLevel){
+
+        ac.level -= 0.25;
+
+        ac.verticalSpeed = -1500;
+
+
+        if(ac.level <= requiredLevel){
+
+            ac.level = requiredLevel;
+
+        }
+
+    }
+
+}
+
         // ===============================
         // Move aircraft
         // ===============================
