@@ -292,86 +292,239 @@ function drawUnknownBlips(){
 // ======================================
 // Draw Aircraft
 // ======================================
+// ======================================
+// Draw Aircraft
+// ======================================
 
 function drawAircraft(){
 
+    // Draw unknown blips
+    if(typeof unknownBlips !== "undefined"){
+
+        unknownBlips.forEach(blip=>{
+
+            if(!blip.active) return;
+
+            ctx.fillStyle = "#FF0000";
+
+            ctx.beginPath();
+            ctx.arc(
+                blip.x,
+                blip.y,
+                6,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fill();
+
+        });
+
+    }
+
+
+
     if(typeof aircraft === "undefined") return;
 
-    aircraft.forEach(ac => {
+
+    aircraft.forEach(ac=>{
 
         if(!ac.active) return;
 
-        ctx.beginPath();
-        ctx.arc(ac.x, ac.y, 4, 0, Math.PI * 2);
+
+        const x = ac.x;
+        const y = ac.y;
+
+
+        // ===============================
+        // Aircraft Symbol
+        // ===============================
+
         ctx.fillStyle = "#00FF00";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            x,
+            y,
+            4,
+            0,
+            Math.PI*2
+        );
+
         ctx.fill();
 
-        const angle = ac.labelAngle * Math.PI / 180;
-        const leaderLength = 35;
 
-        const lx = ac.x + Math.cos(angle) * leaderLength;
-        const ly = ac.y + Math.sin(angle) * leaderLength;
+
+        // ===============================
+        // Leader line
+        // ===============================
+
+        const angle =
+        ac.labelAngle * Math.PI / 180;
+
+
+        const leaderLength = 45;
+
+
+        const lx =
+        x + Math.cos(angle) * leaderLength;
+
+
+        const ly =
+        y + Math.sin(angle) * leaderLength;
+
+
+
+        ctx.strokeStyle = "#00FF00";
+        ctx.lineWidth = 1;
+
 
         ctx.beginPath();
-        ctx.moveTo(ac.x, ac.y);
-        ctx.lineTo(lx, ly);
-        ctx.strokeStyle = "#00FF00";
+
+        ctx.moveTo(x,y);
+
+        ctx.lineTo(lx,ly);
+
         ctx.stroke();
 
-        // Label
-ctx.font = "14px Consolas";
-ctx.fillStyle = "#00FF00";
 
-const labelXDirection = Math.cos(angle);
 
-if(labelXDirection < 0){
+        // ===============================
+        // Label position
+        // ===============================
 
-    // Label on left side
-    ctx.textAlign = "right";
+        const horizontal =
+        Math.cos(angle);
 
-    ctx.fillText(
-        ac.callsign,
-        lx - 5,
-        ly - 5
-    );
 
-}
-else{
+        let labelX;
+        let textAlign;
 
-    // Label on right side
-    ctx.textAlign = "left";
 
-    ctx.fillText(
-        ac.callsign,
-        lx + 5,
-        ly - 5
-    );
+        if(horizontal >= 0){
 
-}
+            // Right side
 
-// reset
-ctx.textAlign = "left";
+            labelX = lx + 8;
 
-        let levelText;
+            textAlign = "left";
 
-        if(ac.level < ac.targetLevel){
+        }
+        else{
 
-            levelText = "FL" + Math.round(ac.level) +
-                        " ↑ FL" + Math.round(ac.targetLevel);
+            // Left side
 
-        }else if(ac.level > ac.targetLevel){
+            labelX = lx - 8;
 
-            levelText = "FL" + Math.round(ac.level) +
-                        " ↓ FL" + Math.round(ac.targetLevel);
-
-        }else{
-
-            levelText = "FL" + Math.round(ac.level);
+            textAlign = "right";
 
         }
 
-        ctx.fillText(levelText, lx + 5, ly + 10);
-        
+
+
+        ctx.textAlign = textAlign;
+
+        ctx.font = "14px Consolas";
+        ctx.fillStyle = "#00FF00";
+
+
+
+        // ===============================
+        // Callsign
+        // ===============================
+
+        ctx.fillText(
+            ac.callsign,
+            labelX,
+            ly - 8
+        );
+
+
+
+        // ===============================
+        // Level
+        // ===============================
+
+        const currentFL =
+        Math.round(ac.level);
+
+
+        const assignedFL =
+        Math.round(ac.targetLevel);
+
+
+        let levelText;
+
+
+        if(currentFL < assignedFL){
+
+            levelText =
+            "FL"+currentFL+
+            " ↑ FL"+assignedFL;
+
+        }
+        else if(currentFL > assignedFL){
+
+            levelText =
+            "FL"+currentFL+
+            " ↓ FL"+assignedFL;
+
+        }
+        else{
+
+            levelText =
+            "FL"+currentFL;
+
+        }
+
+
+
+        ctx.fillText(
+            levelText,
+            labelX,
+            ly + 8
+        );
+
+
+
+        // ===============================
+        // Vertical speed (optional)
+        // ===============================
+
+        if(ac.verticalSpeed !== 0){
+
+            let vsText;
+
+
+            if(ac.verticalSpeed > 0){
+
+                vsText =
+                "↑"+ac.verticalSpeed;
+
+            }
+            else{
+
+                vsText =
+                "↓"+Math.abs(ac.verticalSpeed);
+
+            }
+
+
+            ctx.fillText(
+                vsText,
+                labelX,
+                ly + 24
+            );
+
+        }
+
+
+
+        // reset alignment
+
+        ctx.textAlign = "left";
+
 
     });
 
