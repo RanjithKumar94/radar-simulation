@@ -586,7 +586,11 @@ canvas.addEventListener("click", function(e){
             my >= ly - 20 &&
             my <= ly + 35
         ){
-
+console.log(
+    "Clicked aircraft:",
+    ac.callsign,
+    ac.labelAngle
+);
             // Select aircraft
             selectedAircraft = ac;
 
