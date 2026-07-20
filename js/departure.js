@@ -27,7 +27,7 @@ document.getElementById("depRwy26").onclick = function(){
 
     departures.push({
 
-        callsign: callsign || "DEP001",
+        callsign: callsignInput || "DEP001",
 
         type:"A320",
 
@@ -87,7 +87,7 @@ document.getElementById("depRwy08").onclick = function(){
     departures.push({
 
         callsign:
-        callsign || "DEP002",
+        callsignInput || "DEP002",
 
         type:"A320",
 
