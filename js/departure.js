@@ -8,7 +8,21 @@ console.log("departure.js loaded");
 
 let departures = [];
 
+window.onload = function(){
 
+    document.getElementById("createDeparture").onclick = function(){
+
+        const runway =
+        document.getElementById("depRunway").value;
+
+        createDeparture(runway);
+
+        document.getElementById("depcallsign").value="";
+        document.getElementById("deplevel").value="";
+
+    };
+
+};
 // ======================================
 // Create Departure
 // ======================================
