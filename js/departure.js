@@ -2,7 +2,8 @@
 // departure.js
 // ATC Simulator Departure Engine
 // ======================================
-console.log("Departure file loaded");
+console.log("departure.js loaded");
+
 let departures = [];
 
 
@@ -107,3 +108,4 @@ function moveDepartures(){
     });
 
 }
+console.log(typeof moveDepartures);
