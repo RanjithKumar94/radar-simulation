@@ -358,9 +358,13 @@ switch(ac.type){
 // Start Simulator
 //--------------------------------------
 
+let simulatorPaused = false;
+
 setInterval(function(){
 
-    if(simulatorPaused) return;
+    if(simulatorPaused){
+        return;
+    }
 
     updateClock();
 
