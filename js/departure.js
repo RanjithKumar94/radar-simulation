@@ -126,7 +126,7 @@ document.getElementById("depRwy08").onclick = function(){
 
     });
 
-
+console.log("CREATED AIRCRAFT:", departures[departures.length-1]);
     console.log(
         "Departure created:",
         callsignInput,
