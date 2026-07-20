@@ -90,7 +90,11 @@ document.getElementById("applyBtn").onclick = function(){
 
     if(lvl !== "")
         selectedAircraft.targetLevel = parseInt(lvl);
-
+console.log(
+    "COMMAND GIVEN:",
+    selectedAircraft.callsign,
+    selectedAircraft.targetHeading
+);
 };
 //--------------------------------------
 // Clock
