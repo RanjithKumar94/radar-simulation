@@ -318,10 +318,39 @@ function drawAircraft(){
         ctx.strokeStyle = "#00FF00";
         ctx.stroke();
 
-        ctx.font = "14px Consolas";
-        ctx.fillStyle = "#00FF00";
+        // Label
+ctx.font = "14px Consolas";
+ctx.fillStyle = "#00FF00";
 
-        ctx.fillText(ac.callsign, lx + 5, ly - 5);
+const labelXDirection = Math.cos(angle);
+
+if(labelXDirection < 0){
+
+    // Label on left side
+    ctx.textAlign = "right";
+
+    ctx.fillText(
+        ac.callsign,
+        lx - 5,
+        ly - 5
+    );
+
+}
+else{
+
+    // Label on right side
+    ctx.textAlign = "left";
+
+    ctx.fillText(
+        ac.callsign,
+        lx + 5,
+        ly - 5
+    );
+
+}
+
+// reset
+ctx.textAlign = "left";
 
         let levelText;
 
