@@ -13,12 +13,25 @@ let departures = [];
 
 document.getElementById("depRwy26").onclick = function(){
 
-    const callsignInput =
-    document.getElementById("callsign").value;
+   const callsignInput =
+document.getElementById("callsign").value.trim();
 
 
-    const levelInput =
-    document.getElementById("level").value;
+const levelInput =
+document.getElementById("level").value.trim();
+
+
+console.log(
+    "CALLSIGN BOX:",
+    document.getElementById("callsign"),
+    "VALUE:",
+    callsignInput
+);
+
+console.log(
+    "LEVEL BOX VALUE:",
+    levelInput
+);
 
 
 console.log(
