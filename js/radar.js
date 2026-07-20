@@ -331,7 +331,7 @@ function drawAircraft(){
     if(typeof aircraft === "undefined") return;
 
 
-   [...aircraft,...departures].forEach(ac=>{
+   [...aircraft, ...(typeof departures !== "undefined" ? departures : [])].forEach(ac=>{
 
         if(!ac.active) return;
 
