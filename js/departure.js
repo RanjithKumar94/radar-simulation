@@ -21,7 +21,11 @@ document.getElementById("depRwy26").onclick = function(){
     document.getElementById("level").value;
 
 
-
+console.log(
+    "INPUT:",
+    callsignInput,
+    levelInput
+);
     const start = bearingToXY(260,5); // West of CCB
 
 
@@ -38,8 +42,8 @@ document.getElementById("depRwy26").onclick = function(){
         labelAngle:0,
 
 
-        heading:80,
-        targetHeading:80,
+        heading:260,
+        targetHeading:260,
 
         turnDirection:"SHORTEST",
 
