@@ -23,7 +23,7 @@ targetSpeed:140,
 ccbETA:"03:13",
 arrivalPhase:false,
 removeTimer:0,
-landed:false
+landed:false,
 active:false,
 spawned:false
 },
@@ -52,7 +52,7 @@ targetSpeed:145,
 ccbETA:"03:16",
 arrivalPhase:false,
 removeTimer:0,
-landed:false
+landed:false,
 active:false,
 spawned:false
 },
@@ -79,7 +79,7 @@ targetSpeed:120,
 ccbETA:"03:19",
 arrivalPhase:false,
 removeTimer:0,
-landed:false
+landed:false,
 active:false,
 spawned:false
 },
@@ -107,7 +107,7 @@ targetSpeed:145,
 ccbETA:"03:21",
 arrivalPhase:false,
 removeTimer:0,
-landed:false
+landed:false,
 active:false,
 spawned:false
 },
@@ -135,7 +135,7 @@ targetSpeed:130,
 ccbETA:"03:27",
 arrivalPhase:false,
 removeTimer:0,
-landed:false
+landed:false,
 active:false,
 spawned:false
 },
@@ -162,7 +162,7 @@ targetSpeed:145,
 ccbETA:"03:28",
 arrivalPhase:false,
 removeTimer:0,
-landed:false
+landed:false,
 active:false,
 spawned:false
 },
@@ -189,7 +189,7 @@ targetSpeed:140,
 ccbETA:"03:32",
 arrivalPhase:false,
 removeTimer:0,
-landed:false
+landed:false,
 active:false,
 spawned:false
 },
@@ -216,7 +216,7 @@ targetSpeed:90,
 ccbETA:"03:34",
 arrivalPhase:false,
 removeTimer:0,
-landed:false
+landed:false,
 active:false,
 spawned:false
 },
@@ -244,7 +244,7 @@ targetSpeed:90,
 ccbETA:"03:36",
 arrivalPhase:false,
 removeTimer:0,
-landed:false
+landed:false,
 active:false,
 spawned:false
 }
