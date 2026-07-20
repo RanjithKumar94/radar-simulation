@@ -569,8 +569,7 @@ canvas.addEventListener("click", function(e){
     const mx = e.clientX - rect.left;
     const my = e.clientY - rect.top;
 
-    aircraft.forEach(ac => {
-
+[...aircraft, ...(typeof departures !== "undefined" ? departures : [])].forEach(ac=>{
         if(!ac.active) return;
 
         const angle = ac.labelAngle * Math.PI / 180;
