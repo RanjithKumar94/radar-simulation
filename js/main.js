@@ -95,6 +95,15 @@ document.querySelector('input[name="turnDir"]:checked').value;
 
 
 selectedAircraft.turnDirection = turn;
+    console.log(
+    "TURN SELECTED:",
+    document.querySelector('input[name="turnDir"]:checked').value
+);
+    console.log(
+    "AIRCRAFT TURN:",
+    selectedAircraft.callsign,
+    selectedAircraft.turnDirection
+);
 console.log(
     "COMMAND GIVEN:",
     selectedAircraft.callsign,
@@ -256,12 +265,7 @@ function moveAircraft(){
 // Heading Turn with Direction Control
 // ======================================
 
-if(ac.heading !== ac.targetHeading){
 
-    const turnRate = 3;
-
-    let diff =
-    (ac.targetHeading - ac.heading + 360) % 360;
 
 
     if(ac.turnDirection === "LEFT"){
