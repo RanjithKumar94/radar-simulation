@@ -2,7 +2,6 @@
 // main.js
 // ATC Simulator Engine
 // ======================================
-console.log("moveAircraft loaded");
 let simulatorPaused = false;
 
 
@@ -164,36 +163,7 @@ function spawnAircraft(){
 // Arrival Descent Logic
 // =====================================
 
-// Start arrival phase at 8.5 NM
-if(ac.distance <= 8.5){
 
-    ac.arrivalPhase = true;
-
-}
-
-
-// Descend only when controller assigns 0
-if(ac.arrivalPhase && ac.targetLevel === 0){
-
-    const descentRate = 0.5; // FL per second
-
-    if(ac.level > 0){
-
-        ac.level -= descentRate;
-
-        ac.verticalSpeed = -3000;
-
-
-        if(ac.level <= 0){
-
-            ac.level = 0;
-            ac.verticalSpeed = 0;
-
-        }
-
-    }
-
-}
 //--------------------------------------
 // Move Aircraft
 //--------------------------------------
