@@ -296,9 +296,13 @@ function drawUnknownBlips(){
 // Draw Aircraft
 // ======================================
 
+// ======================================
+// Draw Aircraft
+// ======================================
+
 function drawAircraft(){
 
-    // Draw unknown blips
+    // Draw unknown traffic
     if(typeof unknownBlips !== "undefined"){
 
         unknownBlips.forEach(blip=>{
@@ -308,12 +312,13 @@ function drawAircraft(){
             ctx.fillStyle = "#FF0000";
 
             ctx.beginPath();
+
             ctx.arc(
                 blip.x,
                 blip.y,
                 6,
                 0,
-                Math.PI*2
+                Math.PI * 2
             );
 
             ctx.fill();
@@ -321,7 +326,6 @@ function drawAircraft(){
         });
 
     }
-
 
 
     if(typeof aircraft === "undefined") return;
@@ -336,9 +340,9 @@ function drawAircraft(){
         const y = ac.y;
 
 
-        // ===============================
-        // Aircraft Symbol
-        // ===============================
+        // =====================================
+        // Aircraft blip
+        // =====================================
 
         ctx.fillStyle = "#00FF00";
 
@@ -349,16 +353,16 @@ function drawAircraft(){
             y,
             4,
             0,
-            Math.PI*2
+            Math.PI * 2
         );
 
         ctx.fill();
 
 
 
-        // ===============================
+        // =====================================
         // Leader line
-        // ===============================
+        // =====================================
 
         const angle =
         ac.labelAngle * Math.PI / 180;
@@ -370,10 +374,8 @@ function drawAircraft(){
         const lx =
         x + Math.cos(angle) * leaderLength;
 
-
         const ly =
         y + Math.sin(angle) * leaderLength;
-
 
 
         ctx.strokeStyle = "#00FF00";
@@ -390,65 +392,54 @@ function drawAircraft(){
 
 
 
-        // ===============================
-        // Label position
-        // ===============================
-
-        const horizontal =
-        Math.cos(angle);
-
+        // =====================================
+        // Label anchor
+        // =====================================
 
         let labelX;
-        let textAlign;
+        let align;
 
 
-        if(horizontal >= 0){
+        if(Math.cos(angle) >= 0){
 
-            // Right side
-
+            // Right side label
             labelX = lx + 8;
-
-            textAlign = "left";
+            align = "left";
 
         }
         else{
 
-            // Left side
-
+            // Left side label
             labelX = lx - 8;
-
-            textAlign = "right";
+            align = "right";
 
         }
 
 
-
-        ctx.textAlign = textAlign;
-
-        ctx.font = "14px Consolas";
+        ctx.textAlign = align;
         ctx.fillStyle = "#00FF00";
+        ctx.font = "14px Consolas";
 
 
 
-        // ===============================
+        // =====================================
         // Callsign
-        // ===============================
+        // =====================================
 
         ctx.fillText(
             ac.callsign,
             labelX,
-            ly - 8
+            ly - 10
         );
 
 
 
-        // ===============================
+        // =====================================
         // Level
-        // ===============================
+        // =====================================
 
         const currentFL =
         Math.round(ac.level);
-
 
         const assignedFL =
         Math.round(ac.targetLevel);
@@ -460,37 +451,36 @@ function drawAircraft(){
         if(currentFL < assignedFL){
 
             levelText =
-            "FL"+currentFL+
-            " ↑ FL"+assignedFL;
+            "FL" + currentFL +
+            " ↑ FL" + assignedFL;
 
         }
         else if(currentFL > assignedFL){
 
             levelText =
-            "FL"+currentFL+
-            " ↓ FL"+assignedFL;
+            "FL" + currentFL +
+            " ↓ FL" + assignedFL;
 
         }
         else{
 
             levelText =
-            "FL"+currentFL;
+            "FL" + currentFL;
 
         }
-
 
 
         ctx.fillText(
             levelText,
             labelX,
-            ly + 8
+            ly + 5
         );
 
 
 
-        // ===============================
-        // Vertical speed (optional)
-        // ===============================
+        // =====================================
+        // Vertical speed
+        // =====================================
 
         if(ac.verticalSpeed !== 0){
 
@@ -500,13 +490,13 @@ function drawAircraft(){
             if(ac.verticalSpeed > 0){
 
                 vsText =
-                "↑"+ac.verticalSpeed;
+                "↑" + ac.verticalSpeed;
 
             }
             else{
 
                 vsText =
-                "↓"+Math.abs(ac.verticalSpeed);
+                "↓" + Math.abs(ac.verticalSpeed);
 
             }
 
@@ -514,15 +504,14 @@ function drawAircraft(){
             ctx.fillText(
                 vsText,
                 labelX,
-                ly + 24
+                ly + 20
             );
 
         }
 
 
 
-        // reset alignment
-
+        // Reset
         ctx.textAlign = "left";
 
 
