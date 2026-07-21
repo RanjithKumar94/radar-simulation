@@ -4,39 +4,34 @@ console.log("routes.js loaded");
 // ========================
 // Route data
 // ========================
-
-const routes = [
+const ROUTES = [
 
 {
- name:"CCB-PJ",
- points:[
-   {
-    radial:190,
-    distance:30
-   }
- ]
+ name:"PJ",
+ start:"CCB",
+ bearing:190,
+ distance:30
 },
 
 {
  name:"PJ160",
  start:"PJ",
- heading:160
+ bearing:160
 },
 
 {
  name:"PJ109",
  start:"PJ",
- heading:109
+ bearing:109
 },
 
 {
- name:"CCB-NAG",
+ name:"NAG",
  start:"CCB",
- heading:88
+ bearing:88
 }
 
 ];
-
 
 // ========================
 // Draw routes on radar
