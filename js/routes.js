@@ -1,3 +1,11 @@
+console.log("routes.js loaded");
+
+
+function drawRoutes(){
+
+    console.log("drawing routes");
+
+}
 const routes = [
 
 {
