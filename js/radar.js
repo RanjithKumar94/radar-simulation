@@ -224,7 +224,7 @@ function drawCCB(){
 function drawRoutes(){
 let startPoint = CCB;
 
-
+ctx.strokeStyle="red";
 if(route.start==="PJ"){
     startPoint = bearingToXY(190,30);
 }
